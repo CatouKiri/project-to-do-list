@@ -1,3 +1,5 @@
+import '../css/style.css';
+
 function sidebar() {
     const div = document.createElement('div');
     const addTaskBtn = document.createElement('button');
