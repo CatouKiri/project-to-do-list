@@ -18,6 +18,11 @@ function sidebar() {
     return div;
 }
 
-function main() {
+export default function render() {
+    const body = document.querySelector('body');
+    const sidebarElement = sidebar();
 
+    body.appendChild(sidebarElement);
+
+    return body;
 }
