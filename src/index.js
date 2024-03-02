@@ -1,3 +1,3 @@
-import render from "./dom";
+import render from "./modules/dom";
 
 render();
