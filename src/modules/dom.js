@@ -15,6 +15,12 @@ function sidebar() {
     showUpcomingBtn.setAttribute('id', 'showUpcomingBtn');
     showCategoryBtn.setAttribute('id', 'showCategoryBtn');
 
+    addTaskBtn.textContent = "+Add  Task";
+    showAllBtn.textContent = "Show All";
+    showTodayBtn.textContent = "Today";
+    showUpcomingBtn.textContent = "Upcoming";
+    showCategoryBtn.textContent = "Category";
+
     div.append(addTaskBtn, showAllBtn, showTodayBtn, showUpcomingBtn, showCategoryBtn);
 
     return div;
