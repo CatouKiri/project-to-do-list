@@ -1,5 +1,18 @@
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
 #sidebar {
     float: left;
     display: flex;
     flex-direction: column;
+    width: 20%;
+    margin: 0px;
+    padding: 0px;
 }
+
+#sidebar button {
+    width: 100%;
+}
+
