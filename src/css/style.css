@@ -3,6 +3,8 @@ body {
     padding: 0px;
 }
 
+/* SIDE BAR STYLE START */
+
 #sidebar {
     float: left;
     display: flex;
@@ -29,3 +31,4 @@ body {
     background-color: rgb(226, 226, 226);
 }
 
+/* SIDE BAR STYLE END */
