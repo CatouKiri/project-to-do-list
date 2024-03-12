@@ -1,5 +1,7 @@
 import '../css/style.css';
 
+// SIDEBAR
+
 function sidebar() {
     const div = document.createElement('div');
     const addTaskBtn = document.createElement('button');
@@ -29,11 +31,43 @@ function sidebar() {
     return div;
 }
 
+// MODAL
+
+function createTaskModal() {
+    const div = document.createElement('div');
+    const form = document.createElement('form');
+    const taskNameInput = document.createElement('input');
+    const taskDescriptionInput = document.createElement('input');
+    const submitButton = document.createElement('button');
+    const cancelButton = document.createElement('button');
+
+    div.setAttribute('id', 'createTask');
+    form.setAttribute('id', 'taskForm');
+    taskNameInput.setAttribute('id', 'taskNameInput');
+    taskNameInput.setAttribute('type', 'text');
+    taskNameInput.setAttribute('placeholder', 'Task Name');
+    taskDescriptionInput.setAttribute('id', 'taskDescriptionInput');
+    taskDescriptionInput.setAttribute('type', 'text');
+    taskDescriptionInput.setAttribute('placeholder', 'Description');
+    submitButton.setAttribute('id', 'submit');
+    submitButton.setAttribute('type', 'submit');
+    cancelButton.setAttribute('id', 'cancel');
+    cancelButton.setAttribute('type', 'button');
+
+    submitButton.textContent = 'Submit';
+    cancelButton.textContent = 'Cancel';
+
+    div.append(form, taskNameInput, taskDescriptionInput, submitButton, cancelButton);
+
+    return div;
+}
+
 export default function render() {
     const body = document.querySelector('body');
     const sidebarElement = sidebar();
+    const modalElement = createTaskModal();
 
-    body.appendChild(sidebarElement);
+    body.append(sidebarElement, modalElement);
 
     return body;
 }

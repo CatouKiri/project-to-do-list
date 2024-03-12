@@ -27,15 +27,13 @@ const ToDoList = {
         if (projectIndex >= 0 && projectIndex < this.projects.length) {
             this.projects[projectIndex].addToDo(toDo);
         } else {
-            console.error("Invalid project index");
+            console.error('Invalid project index');
         }
     },
     addIndividualToDo: function(toDo) {
-        this.projects.push(new Project("Individual"));
+        this.projects.push(new Project('Individual'));
         this.addToDoToProject(this.projects.length - 1, toDo);
     }
 };
 
 // ADD TODO
-let addButton = document.getElementById("add-button");
-addButton.onclick = inputValidation;
