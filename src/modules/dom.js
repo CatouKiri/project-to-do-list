@@ -49,7 +49,7 @@ function createTaskModal() {
     taskDescriptionInput.setAttribute('id', 'taskDescriptionInput');
     taskDescriptionInput.setAttribute('type', 'text');
     taskDescriptionInput.setAttribute('placeholder', 'Description');
-    submitButton.setAttribute('id', 'submit');
+    submitButton.setAttribute('id', 'taskSubmit');
     submitButton.setAttribute('type', 'submit');
     cancelButton.setAttribute('id', 'cancel');
     cancelButton.setAttribute('type', 'button');
@@ -70,4 +70,11 @@ export default function render() {
     body.append(sidebarElement, modalElement);
 
     return body;
+}
+
+export function addToDoButtonOnclick() {
+    const addToDoButton = document.getElementById('addTaskBtn');
+    addToDoButton.onclick = function() {
+        console.log('i am clicking');
+    }
 }
