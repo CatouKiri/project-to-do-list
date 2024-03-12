@@ -13,6 +13,10 @@ function Project(name) {
     this.toDos = [];
 }
 
+Project.prototype.addToDo = function(toDo) {
+    this.toDos.push(toDo);
+};
+
 // TODOLIST OBJECT
 const ToDoList = {
     projects: [],
@@ -31,3 +35,7 @@ const ToDoList = {
         this.addToDoToProject(this.projects.length - 1, toDo);
     }
 };
+
+// ADD TODO
+let addButton = document.getElementById("add-button");
+addButton.onclick = inputValidation;
