@@ -85,8 +85,15 @@ export function addToDoButtonOnclick() {
         }
 
         const submitToDoButton = document.getElementById('taskSubmit');
+        const taskDesciption = document.getElementById("taskDescriptionInput");
+        const taskName = document.getElementById("taskNameInput");
         submitToDoButton.onclick = function() {
-            console.log("submit");
+            if(taskName.value === ""){
+                alert("input task name");
+            }
+            else {
+                console.log("submit");
+            }
         }
     }
 }
