@@ -33,7 +33,7 @@ function sidebar() {
 
 // MODAL
 
-function createTaskModal() {
+export function createTaskModal() {
     const div = document.createElement('div');
     const form = document.createElement('form');
     const taskNameInput = document.createElement('input');
@@ -51,7 +51,7 @@ function createTaskModal() {
     taskDescriptionInput.setAttribute('placeholder', 'Description');
     submitButton.setAttribute('id', 'taskSubmit');
     submitButton.setAttribute('type', 'submit');
-    cancelButton.setAttribute('id', 'cancel');
+    cancelButton.setAttribute('id', 'cancelToDo');
     cancelButton.setAttribute('type', 'button');
 
     submitButton.textContent = 'Submit';
@@ -74,7 +74,19 @@ export default function render() {
 
 export function addToDoButtonOnclick() {
     const addToDoButton = document.getElementById('addTaskBtn');
+    const toDoModal = document.getElementById('createTask');
+
     addToDoButton.onclick = function() {
-        console.log('i am clicking');
+        toDoModal.style.display = "flex";
+
+        const cancelToDoButton = document.getElementById('cancelToDo');
+        cancelToDoButton.onclick = function() {
+            toDoModal.style.display = "none";
+        }
+
+        const submitToDoButton = document.getElementById('taskSubmit');
+        submitToDoButton.onclick = function() {
+            console.log("submit");
+        }
     }
 }
