@@ -92,8 +92,12 @@ export function addToDoButtonOnclick() {
                 alert("input task name");
             }
             else {
-                console.log("submit");
+                submitToDo(taskDesciption.value, taskName.value);
             }
         }
     }
+}
+
+export function submitToDo(toDoTitle, toDoValue) {
+
 }
