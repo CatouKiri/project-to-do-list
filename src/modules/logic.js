@@ -14,6 +14,7 @@ const toDoList = [
 const projectToDoList = [
     {
         name: "The Odin Project",
+        projectDescription: "Finish Programming Course",
         toDos:[
             {
             title: "Lesson 1",
@@ -38,6 +39,12 @@ const projectToDoList = [
 function toDo(title, description) {
     this.title = title;
     this.description = description;
+}
+
+// PROJECT TODO CONSTRUCTOR
+function projectToDo(name, projectDescription) {
+    this.name = name;
+    this.projectDescription = projectDescription;
 }
 
 export { toDoList, projectToDoList };
