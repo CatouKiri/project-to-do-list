@@ -4,7 +4,6 @@ body {
 }
 
 /* SIDE BAR */
-
 #sidebar {
     float: left;
     display: flex;
@@ -34,6 +33,21 @@ body {
 
 #sidebar button:hover {
     background-color: rgb(226, 226, 226);
+}
+
+/* TO DO CONTAIER */
+#toDoListContainer {
+    float: right;
+    display: flex;
+    width: 80%;
+    margin: 0px;
+    padding: 50px 0px 0px 0px;
+    justify-content: center;
+}
+
+#toDoList {
+    display: flex;
+    width: 80%;
 }
 
 /* MODAL */

@@ -1,7 +1,7 @@
 import '../css/style.css';
+import { toDoList, projectToDoList } from "./logic.js";
 
 // SIDEBAR
-
 function sidebar() {
     const div = document.createElement('div');
     const addTaskBtn = document.createElement('button');
@@ -31,8 +31,22 @@ function sidebar() {
     return div;
 }
 
-// MODAL
+// TO DO CONTAINER
+function toDoContainer() {
+    const toDoListContainer = document.createElement('div');
+    const toDoList = document.createElement('div');
 
+    toDoListContainer.setAttribute('id', 'toDoListContainer');
+    toDoList.setAttribute('id', 'toDoList');
+
+    toDoList.textContent = "TO DOs";
+
+    toDoListContainer.append(toDoList);
+
+    return toDoListContainer;
+}
+
+// CREATE MODAL
 export function createTaskModal() {
     const div = document.createElement('div');
     const form = document.createElement('form');
@@ -62,16 +76,7 @@ export function createTaskModal() {
     return div;
 }
 
-export default function render() {
-    const body = document.querySelector('body');
-    const sidebarElement = sidebar();
-    const modalElement = createTaskModal();
-
-    body.append(sidebarElement, modalElement);
-
-    return body;
-}
-
+// ADD BUTTON FUNCTION
 export function addToDoButtonOnclick() {
     const addToDoButton = document.getElementById('addTaskBtn');
     const toDoModal = document.getElementById('createTask');
@@ -98,6 +103,36 @@ export function addToDoButtonOnclick() {
     }
 }
 
+// SUBMIT TO DO
 export function submitToDo(toDoTitle, toDoValue) {
+}
 
+// DISPLAY OF TODOS AND PROJECTS FUNCTIONS
+
+// UPDATE DISPLAY TODO LIST
+function updateDisplayToDoList(toDo) {
+    const body = document.querySelector("body");
+    const divContainer = document.querySelector("")
+}
+
+// DISPLAY DEFAULT TODO LIST
+export function displayToDoList() {
+    for(const toDo of toDoList) {
+        updateDisplayToDoList(toDo);
+    }
+}
+
+// DISPLAY TODO PROJECTS
+
+
+// RENDER ELEMENTS
+export default function render() {
+    const body = document.querySelector('body');
+    const sidebarElement = sidebar();
+    const modalElement = createTaskModal();
+    const toDoContainerElement = toDoContainer();
+
+    body.append(sidebarElement, modalElement, toDoContainerElement);
+
+    return body;
 }
