@@ -35,13 +35,15 @@ function sidebar() {
 function toDoContainer() {
     const toDoListContainer = document.createElement('div');
     const toDoList = document.createElement('div');
+    const tableBody = document.createElement("table");
 
     toDoListContainer.setAttribute('id', 'toDoListContainer');
     toDoList.setAttribute('id', 'toDoList');
+    tableBody.setAttribute('id', 'toDoTable');
 
     toDoList.textContent = "TO DOs";
 
-    toDoListContainer.append(toDoList);
+    toDoListContainer.append(toDoList, tableBody);
 
     return toDoListContainer;
 }
@@ -108,21 +110,36 @@ export function submitToDo(toDoTitle, toDoValue) {
 }
 
 // DISPLAY OF TODOS AND PROJECTS FUNCTIONS
-
-// UPDATE DISPLAY TODO LIST
+    // UPDATE DISPLAY TODO LIST
 function updateDisplayToDoList(toDo) {
-    const body = document.querySelector("body");
-    const divContainer = document.querySelector("")
+    const toDoContainer = document.querySelector("#toDoTable");
+    const newRow = document.createElement("tr");
+    const checkBoxColumn = document.createElement("td");
+        const checkBox = document.createElement("input");
+        checkBox.setAttribute('type','checkbox');
+    const toDoName = document.createElement("td");
+    const toDoDueDate = document.createElement("td");
+    const toDoEdit = document.createElement("td");
+    const toDoDelete = document.createElement("td");
+
+    toDoContainer.appendChild(newRow).className = "table-row";
+    newRow.appendChild(checkBoxColumn);
+    checkBoxColumn.appendChild(checkBox);
+    newRow.appendChild(toDoName).textContent = `${toDo.title}`;
+    newRow.appendChild(toDoDueDate);
+    newRow.appendChild(toDoEdit).textContent = `Edit`;
+    newRow.appendChild(toDoDelete).textContent = `Delete`;
 }
 
-// DISPLAY DEFAULT TODO LIST
+    // DISPLAY DEFAULT TODO LIST
 export function displayToDoList() {
     for(const toDo of toDoList) {
         updateDisplayToDoList(toDo);
     }
+    console.log("asd")
 }
 
-// DISPLAY TODO PROJECTS
+    // DISPLAY TODO PROJECTS
 
 
 // RENDER ELEMENTS

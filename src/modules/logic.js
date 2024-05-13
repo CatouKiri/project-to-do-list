@@ -2,11 +2,13 @@ const toDoList = [
     {
         title: "Bench Press",
         description: "Do 10 bench press with 40lbs dumbells",
+        dueDate: "12-31-2024",
         completed: false
     },
     {
         title: "Sweep floor",
         description: "",
+        dueDate: "07-14-2024",
         completed: false
     }
 ]
@@ -19,16 +21,19 @@ const projectToDoList = [
             {
             title: "Lesson 1",
             description: "What is HTML?",
+            dueDate: "06-01-2024",
             completed: false
             },
             {
             title: "Lesson 2",
             description: "What is CSS?",
+            dueDate: "07-01-2024",
             completed: false
             },
             {
             title: "Lesson 3",
             description: "What is Javascript?",
+            dueDate: "08-01-2024",
             completed: false
             }
         ]
