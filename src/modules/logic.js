@@ -37,6 +37,24 @@ const projectToDoList = [
             completed: false
             }
         ]
+    },
+    {
+        name: "5 Day Dumbell Program",
+        projectDescription: "Exercise Program",
+        toDos:[
+            {
+            title: "Day 1",
+            description: "Upper Body Exercise",
+            dueDate: "06-01-2024",
+            completed: false
+            },
+            {
+            title: "Day 2",
+            description: "Lower Exercise",
+            dueDate: "07-01-2024",
+            completed: false
+            }
+        ],
     }
 ]
 

@@ -36,14 +36,17 @@ function toDoContainer() {
     const toDoListContainer = document.createElement('div');
     const toDoList = document.createElement('div');
     const tableBody = document.createElement("table");
+    const toDoProject = document.createElement('div');
 
     toDoListContainer.setAttribute('id', 'toDoListContainer');
     toDoList.setAttribute('id', 'toDoList');
     tableBody.setAttribute('id', 'toDoTable');
+    toDoProject.setAttribute('id', 'toDoProject');
 
     toDoList.textContent = "TO DOs";
+    toDoProject.textContent = "PROJECTS";
 
-    toDoListContainer.append(toDoList);
+    toDoListContainer.append(toDoList, toDoProject);
     toDoList.append(tableBody);
 
     return toDoListContainer;
@@ -111,9 +114,22 @@ export function submitToDo(toDoTitle, toDoValue) {
 }
 
 // DISPLAY OF TODOS AND PROJECTS FUNCTIONS
-    // UPDATE DISPLAY TODO LIST
-function updateDisplayToDoList(toDo) {
+
+    // DISPLAY DEFAULT TODO LIST
+export function displayToDoList() {
+    for(const toDo of toDoList) {
+        individualToDoContainer(toDo);
+    }
+}
+
+    // SELECT THE INDIVIDUAL TODO TABLE CONTAINER
+function individualToDoContainer(toDo) {
     const toDoContainer = document.querySelector("#toDoTable");
+    updateDisplayToDoList(toDo, toDoContainer);
+}
+
+    // UPDATE DISPLAY TODO LIST
+function updateDisplayToDoList(toDo, toDoContainer) {
     const newRow = document.createElement("tr");
     const checkBoxColumn = document.createElement("td");
         const checkBox = document.createElement("input");
@@ -136,16 +152,38 @@ function updateDisplayToDoList(toDo) {
     newRow.appendChild(toDoDelete).textContent = `Delete`;
 }
 
-    // DISPLAY DEFAULT TODO LIST
-export function displayToDoList() {
-    for(const toDo of toDoList) {
-        updateDisplayToDoList(toDo);
-    }
-    console.log("asd")
-}
 
     // DISPLAY TODO PROJECTS
+export function displayToDoProjects() {
+    let a = 1;
+    for(const project of projectToDoList) {
+        updateProjectDisplay(project, a);
+        a++;
+    }
+}
 
+function updateProjectDisplay(project, a) {
+    const toDoProjectContainer = document.querySelector('#toDoProject');
+    const toDoProject = document.createElement('div');
+    const projectTable = document.createElement('table');
+
+    projectTable.setAttribute('id',`table-` + a);
+
+    toDoProject.textContent = `${project.name}`;
+
+    toDoProjectContainer.appendChild(toDoProject);
+    toDoProject.appendChild(projectTable);
+
+    for(const toDo of project.toDos) {
+        projectToDoContainer(toDo, a)
+    }
+}
+
+// SELECT THE PROJECT TODO TABLE CONTAINER
+function projectToDoContainer(toDo, a) {
+    const toDoContainer = document.querySelector("#table-" + a);
+    updateDisplayToDoList(toDo, toDoContainer);
+}
 
 // RENDER ELEMENTS
 export default function render() {
