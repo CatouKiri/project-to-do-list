@@ -47,7 +47,34 @@ body {
 
 #toDoList {
     display: flex;
-    width: 80%;
+    flex-direction: column;
+    width: 60%;
+}
+
+td {
+    text-align: left;
+    border-bottom: 1px solid black;
+    padding: 5px 0px 5px 0px;
+    margin: 0px;
+}
+
+#tdCheckbox {
+    margin-right: -12px;
+}
+
+#tdDelete {
+    text-align: center;
+    width: 80px;
+
+}
+#tdEdit {
+    text-align: center;
+    width: 80px;
+}
+
+#tdDate {
+    text-align: center;
+    width: 100px;
 }
 
 /* MODAL */

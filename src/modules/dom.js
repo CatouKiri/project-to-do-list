@@ -43,7 +43,8 @@ function toDoContainer() {
 
     toDoList.textContent = "TO DOs";
 
-    toDoListContainer.append(toDoList, tableBody);
+    toDoListContainer.append(toDoList);
+    toDoList.append(tableBody);
 
     return toDoListContainer;
 }
@@ -117,16 +118,20 @@ function updateDisplayToDoList(toDo) {
     const checkBoxColumn = document.createElement("td");
         const checkBox = document.createElement("input");
         checkBox.setAttribute('type','checkbox');
+        checkBox.setAttribute('id','tdCheckbox');
     const toDoName = document.createElement("td");
     const toDoDueDate = document.createElement("td");
+        toDoDueDate.setAttribute('id','tdDate');
     const toDoEdit = document.createElement("td");
+        toDoEdit.setAttribute('id','tdEdit');
     const toDoDelete = document.createElement("td");
+        toDoDelete.setAttribute('id','tdDelete');
 
     toDoContainer.appendChild(newRow).className = "table-row";
     newRow.appendChild(checkBoxColumn);
     checkBoxColumn.appendChild(checkBox);
     newRow.appendChild(toDoName).textContent = `${toDo.title}`;
-    newRow.appendChild(toDoDueDate);
+    newRow.appendChild(toDoDueDate).textContent = `${toDo.dueDate}`;
     newRow.appendChild(toDoEdit).textContent = `Edit`;
     newRow.appendChild(toDoDelete).textContent = `Delete`;
 }
