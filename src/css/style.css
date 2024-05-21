@@ -67,7 +67,6 @@ td {
 #tdDelete {
     text-align: center;
     width: 80px;
-
 }
 #tdEdit {
     text-align: center;
@@ -77,6 +76,15 @@ td {
 #tdDate {
     text-align: center;
     width: 100px;
+}
+
+#toDoProject div table{
+    width: 100%;
+}
+
+#toDoProject div{
+    /* background-color: red; */
+    padding-top: 30px;
 }
 
 /* MODAL */
