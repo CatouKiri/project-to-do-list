@@ -54,30 +54,46 @@ function toDoContainer() {
 
 // CREATE MODAL
 export function createTaskModal() {
-    const div = document.createElement('div');
-    const form = document.createElement('form');
-    const taskNameInput = document.createElement('input');
-    const taskDescriptionInput = document.createElement('input');
-    const submitButton = document.createElement('button');
-    const cancelButton = document.createElement('button');
 
+    const div = document.createElement('div');
     div.setAttribute('id', 'createTask');
+
+    const modalDiv = document.createElement('div');
+
+    const form = document.createElement('form');
     form.setAttribute('id', 'taskForm');
+
+    const addTaskHeader = document.createElement('h3');
+    addTaskHeader.textContent = "Add To Do";
+
+    const taskNameInput = document.createElement('input');
     taskNameInput.setAttribute('id', 'taskNameInput');
     taskNameInput.setAttribute('type', 'text');
     taskNameInput.setAttribute('placeholder', 'Task Name');
+
+    const taskDescriptionInput = document.createElement('input');
     taskDescriptionInput.setAttribute('id', 'taskDescriptionInput');
     taskDescriptionInput.setAttribute('type', 'text');
     taskDescriptionInput.setAttribute('placeholder', 'Description');
+
+    const taskDueDate = document.createElement('input');
+    taskDueDate.setAttribute('id', 'taskDueDate');
+    taskDueDate.setAttribute('type', 'text');
+    taskDueDate.setAttribute('placeholder', 'Due Date');
+
+    const submitButton = document.createElement('button');
     submitButton.setAttribute('id', 'taskSubmit');
     submitButton.setAttribute('type', 'submit');
+
+    const cancelButton = document.createElement('button');
     cancelButton.setAttribute('id', 'cancelToDo');
     cancelButton.setAttribute('type', 'button');
 
     submitButton.textContent = 'Submit';
     cancelButton.textContent = 'Cancel';
 
-    div.append(form, taskNameInput, taskDescriptionInput, submitButton, cancelButton);
+    div.append(modalDiv);
+    modalDiv.append(form, addTaskHeader, taskNameInput, taskDescriptionInput, taskDueDate, submitButton, cancelButton);
 
     return div;
 }
@@ -131,17 +147,23 @@ function individualToDoContainer(toDo) {
     // UPDATE DISPLAY TODO LIST
 function updateDisplayToDoList(toDo, toDoContainer) {
     const newRow = document.createElement("tr");
+
     const checkBoxColumn = document.createElement("td");
-        const checkBox = document.createElement("input");
-        checkBox.setAttribute('type','checkbox');
-        checkBox.setAttribute('id','tdCheckbox');
+    checkBoxColumn.setAttribute('id','tdCheckbox');
+
+    const checkBox = document.createElement("input");
+    checkBox.setAttribute('type','checkbox');
+
     const toDoName = document.createElement("td");
+
     const toDoDueDate = document.createElement("td");
-        toDoDueDate.setAttribute('id','tdDate');
+    toDoDueDate.setAttribute('id','tdDate');
+
     const toDoEdit = document.createElement("td");
-        toDoEdit.setAttribute('id','tdEdit');
+    toDoEdit.setAttribute('id','tdEdit');
+
     const toDoDelete = document.createElement("td");
-        toDoDelete.setAttribute('id','tdDelete');
+    toDoDelete.setAttribute('id','tdDelete');
 
     toDoContainer.appendChild(newRow).className = "table-row";
     newRow.appendChild(checkBoxColumn);
@@ -152,7 +174,6 @@ function updateDisplayToDoList(toDo, toDoContainer) {
     newRow.appendChild(toDoDelete).textContent = `Delete`;
 }
 
-
     // DISPLAY TODO PROJECTS
 export function displayToDoProjects() {
     let a = 1;
@@ -161,7 +182,7 @@ export function displayToDoProjects() {
         a++;
     }
 }
-
+    // UPDATE DISPLAY TODO PROJECTS
 function updateProjectDisplay(project, a) {
     const toDoProjectContainer = document.querySelector('#toDoProject');
     const toDoProject = document.createElement('div');
