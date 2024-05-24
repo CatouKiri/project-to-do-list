@@ -34,19 +34,26 @@ function sidebar() {
 // TO DO CONTAINER
 function toDoContainer() {
     const toDoListContainer = document.createElement('div');
-    const toDoList = document.createElement('div');
-    const tableBody = document.createElement("table");
-    const toDoProject = document.createElement('div');
-
     toDoListContainer.setAttribute('id', 'toDoListContainer');
+
+    const toDoList = document.createElement('div');
     toDoList.setAttribute('id', 'toDoList');
+
+    const tableBody = document.createElement("table");
     tableBody.setAttribute('id', 'toDoTable');
+
+    const toDoProject = document.createElement('div');
     toDoProject.setAttribute('id', 'toDoProject');
 
-    toDoList.textContent = "TO DOs";
-    toDoProject.textContent = "PROJECTS";
+    const toDoListHeader = document.createElement('h2');
+    toDoListHeader.textContent = "TO DOs";
+
+    const toDoProjectHeader = document.createElement('h2');
+    toDoProjectHeader.textContent = "PROJECTS";
 
     toDoListContainer.append(toDoList, toDoProject);
+    toDoList.append(toDoListHeader);
+    toDoProject.append(toDoProjectHeader);
     toDoList.append(tableBody);
 
     return toDoListContainer;
@@ -145,7 +152,7 @@ function individualToDoContainer(toDo) {
 }
 
     // UPDATE DISPLAY TODO LIST
-function updateDisplayToDoList(toDo, toDoContainer) {
+function updateDisplayToDoList(toDo, toDoContainer, toDoType) {
     const newRow = document.createElement("tr");
 
     const checkBoxColumn = document.createElement("td");
@@ -166,6 +173,15 @@ function updateDisplayToDoList(toDo, toDoContainer) {
     toDoDelete.setAttribute('id','tdDelete');
 
     toDoContainer.appendChild(newRow).className = "table-row";
+
+    if(toDoType == "project") {
+        const dropdownColumn = document.createElement("td");
+        dropdownColumn.setAttribute('id','tdDropdown');
+        dropdownColumn.textContent = "⌄";
+
+        newRow.appendChild(dropdownColumn);
+    }
+
     newRow.appendChild(checkBoxColumn);
     checkBoxColumn.appendChild(checkBox);
     newRow.appendChild(toDoName).textContent = `${toDo.title}`;
@@ -203,7 +219,8 @@ function updateProjectDisplay(project, a) {
 // SELECT THE PROJECT TODO TABLE CONTAINER
 function projectToDoContainer(toDo, a) {
     const toDoContainer = document.querySelector("#table-" + a);
-    updateDisplayToDoList(toDo, toDoContainer);
+    const toDoType = "project";
+    updateDisplayToDoList(toDo, toDoContainer, toDoType);
 }
 
 // RENDER ELEMENTS
