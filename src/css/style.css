@@ -71,11 +71,6 @@ td {
     cursor: pointer;
 }
 
-#tdDropdown {
-    width: 20px;
-    text-align: center;
-}
-
 #tdCheckbox {
     width: 35px;
 }
@@ -112,7 +107,7 @@ td {
 }
 
 /* MODAL */
-#createTask {
+#createModal {
     display: none;
     flex-direction: column;
     position: absolute;
@@ -124,7 +119,7 @@ td {
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-#createTask > div {
+#createModal > div {
     background-color: rgb(255, 255, 255);
     box-shadow: 5px 5px 50px 5px rgba(0, 0, 0, 0.2);
     border-radius: 3%;
@@ -152,7 +147,7 @@ input {
     margin-bottom: 5px;
 }
 
-#createTask button {
+#createModal button {
     cursor: pointer;
     font-size: 14px;
     font-weight: 500;

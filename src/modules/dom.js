@@ -63,7 +63,7 @@ function toDoContainer() {
 export function createTaskModal() {
 
     const div = document.createElement('div');
-    div.setAttribute('id', 'createTask');
+    div.setAttribute('id', 'createModal');
 
     const modalDiv = document.createElement('div');
 
@@ -77,20 +77,22 @@ export function createTaskModal() {
     taskNameInput.setAttribute('id', 'taskNameInput');
     taskNameInput.setAttribute('type', 'text');
     taskNameInput.setAttribute('placeholder', 'Task Name');
+    taskNameInput.setAttribute('onkeyup', 'enableSubmitButton()');
 
     const taskDescriptionInput = document.createElement('input');
     taskDescriptionInput.setAttribute('id', 'taskDescriptionInput');
     taskDescriptionInput.setAttribute('type', 'text');
     taskDescriptionInput.setAttribute('placeholder', 'Description');
 
-    const taskDueDate = document.createElement('input');
-    taskDueDate.setAttribute('id', 'taskDueDate');
-    taskDueDate.setAttribute('type', 'text');
-    taskDueDate.setAttribute('placeholder', 'Due Date');
+    const taskDueDateInput = document.createElement('input');
+    taskDueDateInput.setAttribute('id', 'taskDueDateInput');
+    taskDueDateInput.setAttribute('type', 'text');
+    taskDueDateInput.setAttribute('placeholder', 'Due Date');
 
     const submitButton = document.createElement('button');
     submitButton.setAttribute('id', 'taskSubmit');
     submitButton.setAttribute('type', 'submit');
+    submitButton.setAttribute('disabled', '');
 
     const cancelButton = document.createElement('button');
     cancelButton.setAttribute('id', 'cancelToDo');
@@ -100,15 +102,27 @@ export function createTaskModal() {
     cancelButton.textContent = 'Cancel';
 
     div.append(modalDiv);
-    modalDiv.append(form, addTaskHeader, taskNameInput, taskDescriptionInput, taskDueDate, submitButton, cancelButton);
+    modalDiv.append(form, addTaskHeader, taskNameInput, taskDescriptionInput, taskDueDateInput, submitButton, cancelButton);
+
+    taskNameInput.addEventListener('keyup', enableSubmitButton);
 
     return div;
+}
+
+function enableSubmitButton() {
+    const submitButton = document.getElementById('taskSubmit');
+    submitButton.removeAttribute('disabled');
+    if (taskNameInput.value.trim() !== '') {
+        submitButton.removeAttribute('disabled');
+    } else {
+        submitButton.setAttribute('disabled', '');
+    }
 }
 
 // ADD BUTTON FUNCTION
 export function addToDoButtonOnclick() {
     const addToDoButton = document.getElementById('addTaskBtn');
-    const toDoModal = document.getElementById('createTask');
+    const toDoModal = document.getElementById('createModal');
 
     addToDoButton.onclick = function() {
         toDoModal.style.display = "flex";
@@ -118,15 +132,17 @@ export function addToDoButtonOnclick() {
             toDoModal.style.display = "none";
         }
 
+
         const submitToDoButton = document.getElementById('taskSubmit');
         const taskDesciption = document.getElementById("taskDescriptionInput");
         const taskName = document.getElementById("taskNameInput");
+        const taskDueDate = document.getElementById("taskDueDateInput");
         submitToDoButton.onclick = function() {
             if(taskName.value === ""){
-                alert("input task name");
+                // alert("input task name");
             }
             else {
-                submitToDo(taskDesciption.value, taskName.value);
+                submitToDo(taskDesciption.value, taskName.value, taskDueDate.value);
             }
         }
     }
@@ -152,7 +168,7 @@ function individualToDoContainer(toDo) {
 }
 
     // UPDATE DISPLAY TODO LIST
-function updateDisplayToDoList(toDo, toDoContainer, toDoType) {
+function updateDisplayToDoList(toDo, toDoContainer) {
     const newRow = document.createElement("tr");
 
     const checkBoxColumn = document.createElement("td");
@@ -173,14 +189,6 @@ function updateDisplayToDoList(toDo, toDoContainer, toDoType) {
     toDoDelete.setAttribute('id','tdDelete');
 
     toDoContainer.appendChild(newRow).className = "table-row";
-
-    if(toDoType == "project") {
-        const dropdownColumn = document.createElement("td");
-        dropdownColumn.setAttribute('id','tdDropdown');
-        dropdownColumn.textContent = "⌄";
-
-        newRow.appendChild(dropdownColumn);
-    }
 
     newRow.appendChild(checkBoxColumn);
     checkBoxColumn.appendChild(checkBox);
@@ -219,8 +227,7 @@ function updateProjectDisplay(project, a) {
 // SELECT THE PROJECT TODO TABLE CONTAINER
 function projectToDoContainer(toDo, a) {
     const toDoContainer = document.querySelector("#table-" + a);
-    const toDoType = "project";
-    updateDisplayToDoList(toDo, toDoContainer, toDoType);
+    updateDisplayToDoList(toDo, toDoContainer);
 }
 
 // RENDER ELEMENTS
@@ -234,3 +241,4 @@ export default function render() {
 
     return body;
 }
+
