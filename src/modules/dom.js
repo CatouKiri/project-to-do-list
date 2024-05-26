@@ -31,34 +31,6 @@ function sidebar() {
     return div;
 }
 
-// TO DO CONTAINER
-function toDoContainer() {
-    const toDoListContainer = document.createElement('div');
-    toDoListContainer.setAttribute('id', 'toDoListContainer');
-
-    const toDoList = document.createElement('div');
-    toDoList.setAttribute('id', 'toDoList');
-
-    const tableBody = document.createElement("table");
-    tableBody.setAttribute('id', 'toDoTable');
-
-    const toDoProject = document.createElement('div');
-    toDoProject.setAttribute('id', 'toDoProject');
-
-    const toDoListHeader = document.createElement('h2');
-    toDoListHeader.textContent = "TO DOs";
-
-    const toDoProjectHeader = document.createElement('h2');
-    toDoProjectHeader.textContent = "PROJECTS";
-
-    toDoListContainer.append(toDoList, toDoProject);
-    toDoList.append(toDoListHeader);
-    toDoProject.append(toDoProjectHeader);
-    toDoList.append(tableBody);
-
-    return toDoListContainer;
-}
-
 // CREATE MODAL
 export function createTaskModal() {
 
@@ -109,6 +81,46 @@ export function createTaskModal() {
     return div;
 }
 
+// CLEAR MODAL
+function clearModal() {
+    let taskName = document.getElementById('taskNameInput');
+    let taskDesciption = document.getElementById('taskDescriptionInput');
+    let taskDueDate = document.getElementById('taskDueDateInput');
+
+    taskName.value = "";
+    taskDesciption.value = "";
+    taskDueDate.value = "";
+}
+
+// TO DO CONTAINER
+function toDoContainer() {
+    const toDoListContainer = document.createElement('div');
+    toDoListContainer.setAttribute('id', 'toDoListContainer');
+
+    const toDoList = document.createElement('div');
+    toDoList.setAttribute('id', 'toDoList');
+
+    const tableBody = document.createElement("table");
+    tableBody.setAttribute('id', 'toDoTable');
+
+    const toDoProject = document.createElement('div');
+    toDoProject.setAttribute('id', 'toDoProject');
+
+    const toDoListHeader = document.createElement('h2');
+    toDoListHeader.textContent = "TO DOs";
+
+    const toDoProjectHeader = document.createElement('h2');
+    toDoProjectHeader.textContent = "PROJECTS";
+
+    toDoListContainer.append(toDoList, toDoProject);
+    toDoList.append(toDoListHeader);
+    toDoProject.append(toDoProjectHeader);
+    toDoList.append(tableBody);
+
+    return toDoListContainer;
+}
+
+// SUBMIT BUTTON
 function enableSubmitButton() {
     const submitButton = document.getElementById('taskSubmit');
     submitButton.removeAttribute('disabled');
@@ -148,10 +160,6 @@ export function addToDoButtonOnclick() {
             individualToDoContainer(newToDo);
         }
     }
-}
-
-// SUBMIT TO DO
-export function submitToDo(toDoTitle, toDoValue) {
 }
 
 // DISPLAY OF TODOS AND PROJECTS FUNCTIONS
@@ -198,6 +206,8 @@ function updateDisplayToDoList(toDo, toDoContainer) {
     newRow.appendChild(toDoDueDate).textContent = `${toDo.dueDate}`;
     newRow.appendChild(toDoEdit).textContent = `Edit`;
     newRow.appendChild(toDoDelete).textContent = `Delete`;
+
+    clearModal();
 }
 
     // DISPLAY TODO PROJECTS
