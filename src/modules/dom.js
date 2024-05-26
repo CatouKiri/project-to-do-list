@@ -1,5 +1,5 @@
 import '../css/style.css';
-import { toDoList, projectToDoList } from "./logic.js";
+import { toDoList, projectToDoList, toDo } from "./logic.js";
 
 // SIDEBAR
 function sidebar() {
@@ -132,18 +132,20 @@ export function addToDoButtonOnclick() {
             toDoModal.style.display = "none";
         }
 
-
         const submitToDoButton = document.getElementById('taskSubmit');
-        const taskDesciption = document.getElementById("taskDescriptionInput");
-        const taskName = document.getElementById("taskNameInput");
-        const taskDueDate = document.getElementById("taskDueDateInput");
+
         submitToDoButton.onclick = function() {
-            if(taskName.value === ""){
-                // alert("input task name");
-            }
-            else {
-                submitToDo(taskDesciption.value, taskName.value, taskDueDate.value);
-            }
+            let taskName = document.querySelector("#taskNameInput").value;
+            let taskDesciption = document.querySelector("#taskDescriptionInput").value;
+            let taskDueDate = document.querySelector("#taskDueDateInput").value;
+
+            let newToDo = new toDo(taskName, taskDesciption, taskDueDate);
+
+            toDoList.push(newToDo);
+            console.log(toDoList);
+            toDoModal.style.display = "none";
+
+            individualToDoContainer(newToDo);
         }
     }
 }
