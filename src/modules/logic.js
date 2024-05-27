@@ -1,11 +1,13 @@
 const toDoList = [
     {
+        id: "1",
         title: "Bench Press",
         description: "Do 10 bench press with 40lbs dumbells",
         dueDate: "12-31-2024",
         completed: false
     },
     {
+        id: "2",
         title: "Sweep floor",
         description: "",
         dueDate: "07-14-2024",
@@ -15,51 +17,59 @@ const toDoList = [
 
 const projectToDoList = [
     {
+        id: "8",
         name: "The Odin Project",
         projectDescription: "Finish Programming Course",
         toDos:[
             {
-            title: "Lesson 1",
-            description: "What is HTML?",
-            dueDate: "06-01-2024",
-            completed: false
+                id: "3",
+                title: "Lesson 1",
+                description: "What is HTML?",
+                dueDate: "06-01-2024",
+                completed: false
             },
             {
-            title: "Lesson 2",
-            description: "What is CSS?",
-            dueDate: "07-01-2024",
-            completed: false
+                id: "4",
+                title: "Lesson 2",
+                description: "What is CSS?",
+                dueDate: "07-01-2024",
+                completed: false
             },
             {
-            title: "Lesson 3",
-            description: "What is Javascript?",
-            dueDate: "08-01-2024",
-            completed: false
+                id: "5",
+                title: "Lesson 3",
+                description: "What is Javascript?",
+                dueDate: "08-01-2024",
+                completed: false
             }
         ]
     },
     {
+        id: "9",
         name: "5 Day Dumbell Program",
         projectDescription: "Exercise Program",
         toDos:[
             {
-            title: "Day 1",
-            description: "Upper Body Exercise",
-            dueDate: "06-01-2024",
-            completed: false
+                id: "6",
+                title: "Day 1",
+                description: "Upper Body Exercise",
+                dueDate: "06-01-2024",
+                completed: false
             },
             {
-            title: "Day 2",
-            description: "Lower Exercise",
-            dueDate: "07-01-2024",
-            completed: false
+                id: "7",
+                title: "Day 2",
+                description: "Lower Exercise",
+                dueDate: "07-01-2024",
+                completed: false
             }
         ],
     }
 ]
 
 // TODO CONSTRUCTOR
-export function toDo(title, description, dueDate) {
+export function toDo(id, title, description, dueDate) {
+    this.id = id;
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;

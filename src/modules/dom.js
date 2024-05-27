@@ -1,32 +1,39 @@
 import '../css/style.css';
 import { toDoList, projectToDoList, toDo } from "./logic.js";
 
+let a = 8;
+
 // SIDEBAR
 function sidebar() {
     const div = document.createElement('div');
-    const addTaskBtn = document.createElement('button');
-    const addProjectBtn = document.createElement('button');
-    const showAllBtn = document.createElement('button');
-    const showTodayBtn = document.createElement('button');
-    const showUpcomingBtn = document.createElement('button');
-    const showCategoryBtn = document.createElement('button');
-
     div.setAttribute('id', 'sidebar');
+
+    const addTaskBtn = document.createElement('button');
     addTaskBtn.setAttribute('id', 'addTaskBtn');
-    addProjectBtn.setAttribute('id', 'addProjectBtn');
-    showAllBtn.setAttribute('id', 'showAllBtn');
-    showTodayBtn.setAttribute('id', 'showTodayBtn');
-    showUpcomingBtn.setAttribute('id', 'showUpcomingBtn');
-    showCategoryBtn.setAttribute('id', 'showCategoryBtn');
-
     addTaskBtn.textContent = "+Add  Task";
-    addProjectBtn.textContent = "+Add  Project";
-    showAllBtn.textContent = "Show All";
-    showTodayBtn.textContent = "Today";
-    showUpcomingBtn.textContent = "Upcoming";
-    showCategoryBtn.textContent = "Category";
 
-    div.append(addTaskBtn, addProjectBtn, showAllBtn, showTodayBtn, showUpcomingBtn, showCategoryBtn);
+    const addProjectBtn = document.createElement('button');
+    addProjectBtn.setAttribute('id', 'addProjectBtn');
+    addProjectBtn.textContent = "+Add  Project";
+
+    // const showAllBtn = document.createElement('button');
+    // showAllBtn.setAttribute('id', 'showAllBtn');
+    // showAllBtn.textContent = "Show All";
+
+    // const showTodayBtn = document.createElement('button');
+    // showTodayBtn.setAttribute('id', 'showTodayBtn');
+    // showTodayBtn.textContent = "Today";
+
+    // const showUpcomingBtn = document.createElement('button');
+    // showUpcomingBtn.setAttribute('id', 'showUpcomingBtn');
+    // showUpcomingBtn.textContent = "Upcoming";
+
+    // const showCategoryBtn = document.createElement('button');
+    // showCategoryBtn.setAttribute('id', 'showCategoryBtn');
+    // showCategoryBtn.textContent = "Category";
+
+    div.append(addTaskBtn, addProjectBtn);
+    // , showAllBtn, showTodayBtn, showUpcomingBtn, showCategoryBtn);
 
     return div;
 }
@@ -147,14 +154,14 @@ export function addToDoButtonOnclick() {
         const submitToDoButton = document.getElementById('taskSubmit');
 
         submitToDoButton.onclick = function() {
+            console.log(a);
             let taskName = document.querySelector("#taskNameInput").value;
             let taskDesciption = document.querySelector("#taskDescriptionInput").value;
             let taskDueDate = document.querySelector("#taskDueDateInput").value;
 
-            let newToDo = new toDo(taskName, taskDesciption, taskDueDate);
-
+            let newToDo = new toDo(a, taskName, taskDesciption, taskDueDate);
+            a++;
             toDoList.push(newToDo);
-            console.log(toDoList);
             toDoModal.style.display = "none";
 
             individualToDoContainer(newToDo);
@@ -180,6 +187,7 @@ function individualToDoContainer(toDo) {
     // UPDATE DISPLAY TODO LIST
 function updateDisplayToDoList(toDo, toDoContainer) {
     const newRow = document.createElement("tr");
+    newRow.setAttribute('id', `${toDo.id}`);
 
     const checkBoxColumn = document.createElement("td");
     checkBoxColumn.setAttribute('id','tdCheckbox');
@@ -197,6 +205,7 @@ function updateDisplayToDoList(toDo, toDoContainer) {
 
     const toDoDelete = document.createElement("td");
     toDoDelete.setAttribute('id','tdDelete');
+    toDoDelete.onclick = function(e) { deleteToDo(e); };
 
     toDoContainer.appendChild(newRow).className = "table-row";
 
@@ -210,9 +219,52 @@ function updateDisplayToDoList(toDo, toDoContainer) {
     clearModal();
 }
 
+// ---------- DELETE TODO ----------
+function deleteToDo(e) {
+    let toDoDelete = e.target.parentNode.getAttribute('id');
+    checkIfToDoOrProject(toDoDelete);
+    let parent = e.target.parentNode;
+    parent.remove();
+  }
+
+// CHECK IF TO BE DELETED IS IN TODOLIST OR TODOPROJECT
+function checkIfToDoOrProject(id) {
+    // Check in toDoList
+    for (const toDo of toDoList) {
+        if (toDo.id === id) {
+            toDoList.splice(toDoList.indexOf(toDo), 1);
+            return;
+        }
+    }
+
+    // Check in projectToDoList for project IDs
+    for (const project of projectToDoList) {
+        if (project.id === id) {
+            projectToDoList.splice(projectToDoList.indexOf(project), 1);
+            return;
+        }
+        // Check in each project's toDos
+        for (const toDo of project.toDos) {
+            if (toDo.id === id) {
+                (project.toDos).splice((project.toDos).indexOf(toDo), 1);
+                console.log(project.toDos);
+                return;
+            }
+        }
+    }
+}
+
+// ---------- GET INDEX OF TODO ----------
+function getIndex(e) {
+    for (const toDo of toDoList) {
+      if(e === toDo.id) {
+        return toDoList.indexOf(toDo);
+      }
+    }
+  }
+
     // DISPLAY TODO PROJECTS
 export function displayToDoProjects() {
-    let a = 1;
     for(const project of projectToDoList) {
         updateProjectDisplay(project, a);
         a++;
@@ -224,7 +276,7 @@ function updateProjectDisplay(project, a) {
     const toDoProject = document.createElement('div');
     const projectTable = document.createElement('table');
 
-    projectTable.setAttribute('id',`table-` + a);
+    projectTable.setAttribute('id', a);
 
     toDoProject.textContent = `${project.name}`;
 
@@ -238,7 +290,7 @@ function updateProjectDisplay(project, a) {
 
 // SELECT THE PROJECT TODO TABLE CONTAINER
 function projectToDoContainer(toDo, a) {
-    const toDoContainer = document.querySelector("#table-" + a);
+    const toDoContainer = document.getElementById(a);
     updateDisplayToDoList(toDo, toDoContainer);
 }
 
