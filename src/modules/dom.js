@@ -154,16 +154,15 @@ export function addToDoButtonOnclick() {
         const submitToDoButton = document.getElementById('taskSubmit');
 
         submitToDoButton.onclick = function() {
-            console.log(a);
             let taskName = document.querySelector("#taskNameInput").value;
             let taskDesciption = document.querySelector("#taskDescriptionInput").value;
             let taskDueDate = document.querySelector("#taskDueDateInput").value;
 
+            // let newToDo = new toDo(a, taskName, taskDesciption, taskDueDate);
             let newToDo = new toDo(a, taskName, taskDesciption, taskDueDate);
             a++;
             toDoList.push(newToDo);
             toDoModal.style.display = "none";
-
             individualToDoContainer(newToDo);
         }
     }
@@ -222,7 +221,9 @@ function updateDisplayToDoList(toDo, toDoContainer) {
 // ---------- DELETE TODO ----------
 function deleteToDo(e) {
     let toDoDelete = e.target.parentNode.getAttribute('id');
-    checkIfToDoOrProject(toDoDelete);
+    let { parentObject, targetObject } = checkIfToDoOrProject(toDoDelete);
+    parentObject.splice(parentObject.indexOf(targetObject), 1);
+    console.log(toDoList);
     let parent = e.target.parentNode;
     parent.remove();
   }
@@ -231,23 +232,24 @@ function deleteToDo(e) {
 function checkIfToDoOrProject(id) {
     // Check in toDoList
     for (const toDo of toDoList) {
-        if (toDo.id === id) {
-            toDoList.splice(toDoList.indexOf(toDo), 1);
-            return;
+        if (toDo.id == id) {
+            let parentObject = toDoList;
+            let targetObject = toDo;
+            return {
+                parentObject,
+                targetObject
+            };
         }
     }
 
     // Check in projectToDoList for project IDs
     for (const project of projectToDoList) {
-        if (project.id === id) {
-            projectToDoList.splice(projectToDoList.indexOf(project), 1);
+        if (project.id == id) {
             return;
         }
         // Check in each project's toDos
         for (const toDo of project.toDos) {
-            if (toDo.id === id) {
-                (project.toDos).splice((project.toDos).indexOf(toDo), 1);
-                console.log(project.toDos);
+            if (toDo.id == id) {
                 return;
             }
         }
