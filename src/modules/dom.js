@@ -277,15 +277,6 @@ function checkIfToDoOrProject(id) {
     }
 }
 
-// ---------- GET INDEX OF TODO ----------
-function getIndex(e) {
-    for (const toDo of toDoList) {
-        if (e === toDo.id) {
-            return toDoList.indexOf(toDo);
-        }
-    }
-}
-
 // DISPLAY TODO PROJECTS
 export function displayToDoProjects() {
     for (const project of projectToDoList) {
