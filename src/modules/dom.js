@@ -1,5 +1,5 @@
 import "../css/style.css";
-import { toDoList, projectToDoList, toDo } from "./logic.js";
+import { toDoList, projectToDoList, toDo, checkIfToDoOrProject } from "./logic.js";
 
 let a = 8;
 
@@ -237,44 +237,6 @@ function deleteToDo(e) {
     console.log(toDoList);
     let parent = e.target.parentNode;
     parent.remove();
-}
-
-// CHECK IF TO BE DELETED IS IN TODOLIST OR TODOPROJECT
-function checkIfToDoOrProject(id) {
-    // Check in toDoList
-    for (const toDo of toDoList) {
-        if (toDo.id == id) {
-            let parentObject = toDoList;
-            let targetObject = toDo;
-            return {
-                parentObject,
-                targetObject,
-            };
-        }
-    }
-
-    // Check in projectToDoList for project IDs
-    for (const project of projectToDoList) {
-        if (project.id == id) {
-            let parentObject = projectToDoList;
-            let targetObject = project;
-            return {
-                parentObject,
-                targetObject,
-            };
-        }
-        // Check in each project's toDos
-        for (const toDo of project.toDos) {
-            if (toDo.id == id) {
-                let parentObject = project.toDos;
-                let targetObject = toDo;
-                return {
-                    parentObject,
-                    targetObject,
-                };
-            }
-        }
-    }
 }
 
 // DISPLAY TODO PROJECTS

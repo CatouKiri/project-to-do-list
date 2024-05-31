@@ -81,4 +81,42 @@ function projectToDo(name, projectDescription) {
     this.projectDescription = projectDescription;
 }
 
+// CHECK IF TO BE DELETED IS IN TODOLIST OR TODOPROJECT
+export function checkIfToDoOrProject(id) {
+    // Check in toDoList
+    for (const toDo of toDoList) {
+        if (toDo.id == id) {
+            let parentObject = toDoList;
+            let targetObject = toDo;
+            return {
+                parentObject,
+                targetObject,
+            };
+        }
+    }
+
+    // Check in projectToDoList for project IDs
+    for (const project of projectToDoList) {
+        if (project.id == id) {
+            let parentObject = projectToDoList;
+            let targetObject = project;
+            return {
+                parentObject,
+                targetObject,
+            };
+        }
+        // Check in each project's toDos
+        for (const toDo of project.toDos) {
+            if (toDo.id == id) {
+                let parentObject = project.toDos;
+                let targetObject = toDo;
+                return {
+                    parentObject,
+                    targetObject,
+                };
+            }
+        }
+    }
+}
+
 export { toDoList, projectToDoList };
