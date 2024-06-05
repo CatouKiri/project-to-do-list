@@ -134,106 +134,149 @@ function toDoContainer() {
     return toDoListContainer;
 }
 
-// SUBMIT BUTTON
-function enableSubmitButton() {
-    const submitButton = document.getElementById("taskSubmit");
-    submitButton.removeAttribute("disabled");
-    if (taskNameInput.value.trim() !== "") {
-        submitButton.removeAttribute("disabled");
-    } else {
-        submitButton.setAttribute("disabled", "");
-    }
-}
-
-// ADD BUTTON FUNCTION
-export function addToDoButtonOnclick() {
-    const addToDoButton = document.getElementById("addTaskBtn");
-    const toDoModal = document.getElementById("createModal");
-
-    addToDoButton.onclick = function () {
-        toDoModal.style.display = "flex";
-
-        const cancelToDoButton = document.getElementById("cancelToDo");
-        cancelToDoButton.onclick = function () {
-            toDoModal.style.display = "none";
-        };
-
-        const submitToDoButton = document.getElementById("taskSubmit");
-
-        submitToDoButton.onclick = function () {
-            let taskName = document.querySelector("#taskNameInput").value;
-            let taskDesciption = document.querySelector(
-                "#taskDescriptionInput"
-            ).value;
-            let taskDueDate = document.querySelector("#taskDueDateInput").value;
-
-            // let newToDo = new toDo(a, taskName, taskDesciption, taskDueDate);
-            let newToDo = new toDo(a, taskName, taskDesciption, taskDueDate);
-            a++;
-            toDoList.push(newToDo);
-            toDoModal.style.display = "none";
-            individualToDoContainer(newToDo);
-        };
-    };
-}
-
 // DISPLAY OF TODOS AND PROJECTS FUNCTIONS
 
-// DISPLAY DEFAULT TODO LIST
-export function displayToDoList() {
-    for (const toDo of toDoList) {
-        individualToDoContainer(toDo);
+    // DISPLAY DEFAULT TODO LIST
+    export function displayToDoList() {
+        for (const toDo of toDoList) {
+            individualToDoContainer(toDo);
+        }
     }
-}
 
-// SELECT THE INDIVIDUAL TODO TABLE CONTAINER
-function individualToDoContainer(toDo) {
-    const toDoContainer = document.querySelector("#toDoTable");
-    updateDisplayToDoList(toDo, toDoContainer);
-}
+    // SELECT THE INDIVIDUAL TODO TABLE CONTAINER
+    function individualToDoContainer(toDo) {
+        const toDoContainer = document.querySelector("#toDoTable");
+        updateDisplayToDoList(toDo, toDoContainer);
+    }
 
-// UPDATE DISPLAY TODO LIST
-function updateDisplayToDoList(toDo, toDoContainer) {
-    const newRow = document.createElement("tr");
-    newRow.setAttribute("id", `${toDo.id}`);
+    // UPDATE DISPLAY TODO LIST
+    function updateDisplayToDoList(toDo, toDoContainer) {
+        const newRow = document.createElement("tr");
+        newRow.setAttribute("id", `${toDo.id}`);
 
-    const checkBoxColumn = document.createElement("td");
-    checkBoxColumn.setAttribute("id", "tdCheckbox");
+        const checkBoxColumn = document.createElement("td");
+        checkBoxColumn.setAttribute("id", "tdCheckbox");
 
-    const checkBox = document.createElement("input");
-    checkBox.setAttribute("type", "checkbox");
+        const checkBox = document.createElement("input");
+        checkBox.setAttribute("type", "checkbox");
 
-    const toDoName = document.createElement("td");
+        const toDoName = document.createElement("td");
 
-    const toDoDescription = document.createElement("div");
-    toDoDescription.setAttribute("id", "divDescription");
+        const toDoDescription = document.createElement("div");
+        toDoDescription.setAttribute("id", "divDescription");
 
-    const toDoDueDate = document.createElement("td");
-    toDoDueDate.setAttribute("id", "tdDate");
+        const toDoDueDate = document.createElement("td");
+        toDoDueDate.setAttribute("id", "tdDate");
 
-    const toDoEdit = document.createElement("td");
-    toDoEdit.setAttribute("id", "tdEdit");
+        const toDoEdit = document.createElement("td");
+        toDoEdit.setAttribute("id", "tdEdit");
 
-    const toDoDelete = document.createElement("td");
-    toDoDelete.setAttribute("id", "tdDelete");
-    toDoDelete.onclick = function (e) {
-        deleteToDo(e);
-    };
+        const toDoDelete = document.createElement("td");
+        toDoDelete.setAttribute("id", "tdDelete");
+        toDoDelete.onclick = function (e) {
+            deleteToDo(e);
+        };
 
-    toDoContainer.appendChild(newRow).className = "table-row";
+        toDoContainer.appendChild(newRow).className = "table-row";
 
-    newRow.appendChild(checkBoxColumn);
-    checkBoxColumn.appendChild(checkBox);
-    newRow.appendChild(toDoName).textContent = `${toDo.title}`;
-    toDoName.appendChild(toDoDescription).textContent = `${toDo.description}`;
-    newRow.appendChild(toDoDueDate).textContent = `${toDo.dueDate}`;
-    newRow.appendChild(toDoEdit).textContent = `Edit`;
-    newRow.appendChild(toDoDelete).textContent = `Delete`;
+        newRow.appendChild(checkBoxColumn);
+        checkBoxColumn.appendChild(checkBox);
+        newRow.appendChild(toDoName).textContent = `${toDo.title}`;
+        toDoName.appendChild(toDoDescription).textContent = `${toDo.description}`;
+        newRow.appendChild(toDoDueDate).textContent = `${toDo.dueDate}`;
+        newRow.appendChild(toDoEdit).textContent = `Edit`;
+        newRow.appendChild(toDoDelete).textContent = `Delete`;
 
-    clearModal();
-}
+        clearModal();
+    }
 
-// ---------- DELETE TODO ----------
+    // DISPLAY TODO PROJECTS
+    export function displayToDoProjects() {
+        for (const project of projectToDoList) {
+            updateProjectDisplay(project, a);
+            a++;
+        }
+    }
+
+    // UPDATE DISPLAY TODO PROJECTS
+    function updateProjectDisplay(project, a) {
+        const toDoProjectContainer = document.querySelector("#toDoProject");
+
+        const toDoProject = document.createElement("div");
+        toDoProject.setAttribute("id", "divProjectContainer");
+
+        const toDoProjectButton = document.createElement("button");
+        toDoProjectButton.setAttribute("id", "addIndividualToDoToProject");
+        toDoProjectButton.textContent = "+";
+
+        const projectTable = document.createElement("table");
+
+        projectTable.setAttribute("id", a);
+
+        toDoProject.textContent = `${project.name}`;
+
+        toDoProjectContainer.appendChild(toDoProject);
+        toDoProject.appendChild(toDoProjectButton);
+        toDoProject.appendChild(projectTable);
+
+        for (const toDo of project.toDos) {
+            projectToDoContainer(toDo, a);
+        }
+    }
+
+    // SELECT THE PROJECT TODO TABLE CONTAINER
+    function projectToDoContainer(toDo, a) {
+        const toDoContainer = document.getElementById(a);
+        updateDisplayToDoList(toDo, toDoContainer);
+    }
+
+// CREATE TO DO
+
+    // SUBMIT BUTTON
+    function enableSubmitButton() {
+        const submitButton = document.getElementById("taskSubmit");
+        submitButton.removeAttribute("disabled");
+        if (taskNameInput.value.trim() !== "") {
+            submitButton.removeAttribute("disabled");
+        } else {
+            submitButton.setAttribute("disabled", "");
+        }
+    }
+
+    // ADD BUTTON FUNCTION
+    export function addToDoButtonOnclick() {
+        const addToDoButton = document.getElementById("addTaskBtn");
+        const toDoModal = document.getElementById("createModal");
+
+        addToDoButton.onclick = function () {
+            toDoModal.style.display = "flex";
+
+            const cancelToDoButton = document.getElementById("cancelToDo");
+            cancelToDoButton.onclick = function () {
+                toDoModal.style.display = "none";
+            };
+
+            const submitToDoButton = document.getElementById("taskSubmit");
+
+            submitToDoButton.onclick = function () {
+                let taskName = document.querySelector("#taskNameInput").value;
+                let taskDesciption = document.querySelector(
+                    "#taskDescriptionInput"
+                ).value;
+                let taskDueDate = document.querySelector("#taskDueDateInput").value;
+
+                let newToDo = new toDo(a, taskName, taskDesciption, taskDueDate);
+                a++;
+                toDoList.push(newToDo);
+                toDoModal.style.display = "none";
+                individualToDoContainer(newToDo);
+            };
+        };
+    }
+
+
+
+// DELETE TODO
 function deleteToDo(e) {
     let toDoDelete = e.target.parentNode.getAttribute("id");
     let { parentObject, targetObject } = checkIfToDoOrProject(toDoDelete);
@@ -243,39 +286,7 @@ function deleteToDo(e) {
     parent.remove();
 }
 
-// DISPLAY TODO PROJECTS
-export function displayToDoProjects() {
-    for (const project of projectToDoList) {
-        updateProjectDisplay(project, a);
-        a++;
-    }
-}
-// UPDATE DISPLAY TODO PROJECTS
-function updateProjectDisplay(project, a) {
-    const toDoProjectContainer = document.querySelector("#toDoProject");
 
-    const toDoProject = document.createElement("div");
-    toDoProject.setAttribute("id", "divProjectContainer");
-
-    const projectTable = document.createElement("table");
-
-    projectTable.setAttribute("id", a);
-
-    toDoProject.textContent = `${project.name}`;
-
-    toDoProjectContainer.appendChild(toDoProject);
-    toDoProject.appendChild(projectTable);
-
-    for (const toDo of project.toDos) {
-        projectToDoContainer(toDo, a);
-    }
-}
-
-// SELECT THE PROJECT TODO TABLE CONTAINER
-function projectToDoContainer(toDo, a) {
-    const toDoContainer = document.getElementById(a);
-    updateDisplayToDoList(toDo, toDoContainer);
-}
 
 // RENDER ELEMENTS
 export default function render() {

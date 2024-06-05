@@ -111,6 +111,10 @@ td {
     padding-top: 5px;
 }
 
+#addIndividualToDoToProject {
+    margin-left: 10px;
+}
+
 /* MODAL */
 #createModal {
     display: none;
@@ -172,3 +176,4 @@ input {
 #cancelToDo {
     background-color: rgb(255, 158, 158);
 }
+
