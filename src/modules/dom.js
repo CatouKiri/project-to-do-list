@@ -205,6 +205,9 @@ function updateDisplayToDoList(toDo, toDoContainer) {
 
     const toDoName = document.createElement("td");
 
+    const toDoDescription = document.createElement("div");
+    toDoDescription.setAttribute("id", "divDescription");
+
     const toDoDueDate = document.createElement("td");
     toDoDueDate.setAttribute("id", "tdDate");
 
@@ -222,6 +225,7 @@ function updateDisplayToDoList(toDo, toDoContainer) {
     newRow.appendChild(checkBoxColumn);
     checkBoxColumn.appendChild(checkBox);
     newRow.appendChild(toDoName).textContent = `${toDo.title}`;
+    toDoName.appendChild(toDoDescription).textContent = `${toDo.description}`;
     newRow.appendChild(toDoDueDate).textContent = `${toDo.dueDate}`;
     newRow.appendChild(toDoEdit).textContent = `Edit`;
     newRow.appendChild(toDoDelete).textContent = `Delete`;
@@ -249,7 +253,10 @@ export function displayToDoProjects() {
 // UPDATE DISPLAY TODO PROJECTS
 function updateProjectDisplay(project, a) {
     const toDoProjectContainer = document.querySelector("#toDoProject");
+
     const toDoProject = document.createElement("div");
+    toDoProject.setAttribute("id", "divProjectContainer");
+
     const projectTable = document.createElement("table");
 
     projectTable.setAttribute("id", a);

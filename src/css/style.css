@@ -98,12 +98,17 @@ td {
     width: 100px;
 }
 
-#toDoProject div table{
+#divProjectContainer table{
     width: 100%;
 }
 
-#toDoProject div{
+#divProjectContainer{
     padding-top: 30px;
+}
+
+#divDescription {
+    margin: 0px;
+    padding-top: 5px;
 }
 
 /* MODAL */
