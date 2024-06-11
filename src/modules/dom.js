@@ -203,15 +203,19 @@ function toDoContainer() {
         const toDoProjectContainer = document.querySelector("#toDoProject");
 
         const toDoProject = document.createElement("div");
-        toDoProject.setAttribute("id", "divProjectContainer");
+        toDoProject.setAttribute("class", "divProjectContainer");
+        toDoProject.setAttribute("id", a);
 
         const toDoProjectButton = document.createElement("button");
         toDoProjectButton.setAttribute("id", "addIndividualToDoToProject");
         toDoProjectButton.textContent = "+";
+        toDoProjectButton.onclick = function (e) {
+            addToDoInsideProjectButtonOnclick(e);
+        };
 
         const projectTable = document.createElement("table");
 
-        projectTable.setAttribute("id", a);
+        // projectTable.setAttribute("id", a);
 
         toDoProject.textContent = `${project.name}`;
 
@@ -227,10 +231,10 @@ function toDoContainer() {
     // SELECT THE PROJECT TODO TABLE CONTAINER
     function projectToDoContainer(toDo, a) {
         const toDoContainer = document.getElementById(a);
-        updateDisplayToDoList(toDo, toDoContainer);
+        updateDisplayToDoList(toDo, toDoContainer.lastElementChild);
     }
 
-// CREATE TO DO
+// CREATE TODO
 
     // SUBMIT BUTTON
     function enableSubmitButton() {
@@ -274,7 +278,10 @@ function toDoContainer() {
         };
     }
 
-
+// CREATE A TODO INSIDE OF PROJECT
+    export function addToDoInsideProjectButtonOnclick(e) {
+        console.log("add todo inside the project" + e.target.getAttribute("id"));
+    }
 
 // DELETE TODO
 function deleteToDo(e) {
@@ -285,7 +292,6 @@ function deleteToDo(e) {
     let parent = e.target.parentNode;
     parent.remove();
 }
-
 
 
 // RENDER ELEMENTS

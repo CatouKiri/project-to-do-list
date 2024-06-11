@@ -98,11 +98,11 @@ td {
     width: 100px;
 }
 
-#divProjectContainer table{
+.divProjectContainer table{
     width: 100%;
 }
 
-#divProjectContainer{
+.divProjectContainer{
     padding-top: 30px;
 }
 
