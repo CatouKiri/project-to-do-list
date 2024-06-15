@@ -38,73 +38,6 @@ function sidebar() {
     return div;
 }
 
-// CREATE MODAL
-export function createTaskModal() {
-    const div = document.createElement("div");
-    div.setAttribute("id", "createModal");
-
-    const modalDiv = document.createElement("div");
-
-    const form = document.createElement("form");
-    form.setAttribute("id", "taskForm");
-
-    const addTaskHeader = document.createElement("h3");
-    addTaskHeader.textContent = "Add To Do";
-
-    const taskNameInput = document.createElement("input");
-    taskNameInput.setAttribute("id", "taskNameInput");
-    taskNameInput.setAttribute("type", "text");
-    taskNameInput.setAttribute("placeholder", "Task Name");
-    taskNameInput.setAttribute("onkeyup", "enableSubmitButton()");
-
-    const taskDescriptionInput = document.createElement("input");
-    taskDescriptionInput.setAttribute("id", "taskDescriptionInput");
-    taskDescriptionInput.setAttribute("type", "text");
-    taskDescriptionInput.setAttribute("placeholder", "Description");
-
-    const taskDueDateInput = document.createElement("input");
-    taskDueDateInput.setAttribute("id", "taskDueDateInput");
-    taskDueDateInput.setAttribute("type", "text");
-    taskDueDateInput.setAttribute("placeholder", "Due Date");
-
-    const submitButton = document.createElement("button");
-    submitButton.setAttribute("id", "taskSubmit");
-    submitButton.setAttribute("type", "submit");
-    submitButton.setAttribute("disabled", "");
-
-    const cancelButton = document.createElement("button");
-    cancelButton.setAttribute("id", "cancelToDo");
-    cancelButton.setAttribute("type", "button");
-
-    submitButton.textContent = "Submit";
-    cancelButton.textContent = "Cancel";
-
-    div.append(modalDiv);
-    modalDiv.append(
-        form,
-        addTaskHeader,
-        taskNameInput,
-        taskDescriptionInput,
-        taskDueDateInput,
-        submitButton,
-        cancelButton
-    );
-
-    taskNameInput.addEventListener("keyup", enableSubmitButton);
-
-    return div;
-}
-
-// CLEAR MODAL
-function clearModal() {
-    let taskName = document.getElementById("taskNameInput");
-    let taskDesciption = document.getElementById("taskDescriptionInput");
-    let taskDueDate = document.getElementById("taskDueDateInput");
-
-    taskName.value = "";
-    taskDesciption.value = "";
-    taskDueDate.value = "";
-}
 
 // TO DO CONTAINER
 function toDoContainer() {
@@ -234,7 +167,44 @@ function toDoContainer() {
         updateDisplayToDoList(toDo, toDoContainer.lastElementChild);
     }
 
-// CREATE TODO
+// BUTTONS
+    // DELETE SINGLE TODO BUTTON
+    function deleteToDo(e) {
+        let toDoDelete = e.target.parentNode.getAttribute("id");
+        let { parentObject, targetObject } = checkIfToDoOrProject(toDoDelete);
+        parentObject.splice(parentObject.indexOf(targetObject), 1);
+        console.log(toDoList);
+        let parent = e.target.parentNode;
+        parent.remove();
+    }
+
+    // CANCEL BUTTON
+    function handleCancelToDoButtonClick() {
+        const toDoModal = document.getElementById("createModal");
+        hideModal(toDoModal);
+    }
+
+    // ADD BUTTON FUNCTION
+    export function addToDoButtonOnclick() {
+        const addToDoButton = document.getElementById("addTaskBtn");
+        addToDoButton.onclick = handleAddToDoButtonOnClick;
+    }
+
+    export function addToDoInsideProjectButtonOnclick(e) {
+        console.log(e.target.parentNode.getAttribute("id"));
+    }
+
+    // ADD BUTTON
+    function handleAddToDoButtonOnClick() {
+        const toDoModal = document.getElementById("createModal");
+            showModal(toDoModal);
+
+            const cancelToDoButton = document.getElementById("cancelToDo");
+            cancelToDoButton.onclick = handleCancelToDoButtonClick;
+
+            const submitToDoButton = document.getElementById("taskSubmit");
+            submitToDoButton.onclick = handleSubmitToDoButtonClick;
+    }
 
     // SUBMIT BUTTON
     function enableSubmitButton() {
@@ -247,51 +217,100 @@ function toDoContainer() {
         }
     }
 
-    // ADD BUTTON FUNCTION
-    export function addToDoButtonOnclick() {
-        const addToDoButton = document.getElementById("addTaskBtn");
+    // SUBMIT BUTTON
+    function handleSubmitToDoButtonClick() {
+        let taskName = document.querySelector("#taskNameInput").value;
+        let taskDesciption = document.querySelector(
+            "#taskDescriptionInput"
+        ).value;
+        let taskDueDate = document.querySelector("#taskDueDateInput").value;
+
+        let newToDo = new toDo(a, taskName, taskDesciption, taskDueDate);
+        a++;
+        toDoList.push(newToDo);
         const toDoModal = document.getElementById("createModal");
-
-        addToDoButton.onclick = function () {
-            toDoModal.style.display = "flex";
-
-            const cancelToDoButton = document.getElementById("cancelToDo");
-            cancelToDoButton.onclick = function () {
-                toDoModal.style.display = "none";
-            };
-
-            const submitToDoButton = document.getElementById("taskSubmit");
-
-            submitToDoButton.onclick = function () {
-                let taskName = document.querySelector("#taskNameInput").value;
-                let taskDesciption = document.querySelector(
-                    "#taskDescriptionInput"
-                ).value;
-                let taskDueDate = document.querySelector("#taskDueDateInput").value;
-
-                let newToDo = new toDo(a, taskName, taskDesciption, taskDueDate);
-                a++;
-                toDoList.push(newToDo);
-                toDoModal.style.display = "none";
-                individualToDoContainer(newToDo);
-            };
-        };
+        hideModal(toDoModal);
+        individualToDoContainer(newToDo);
     }
 
-// CREATE A TODO INSIDE OF PROJECT
-    export function addToDoInsideProjectButtonOnclick(e) {
-        console.log("add todo inside the project" + e.target.getAttribute("id"));
+// MODAL
+    // CREATE MODAL
+    export function createTaskModal() {
+        const div = document.createElement("div");
+        div.setAttribute("id", "createModal");
+
+        const modalDiv = document.createElement("div");
+
+        const form = document.createElement("form");
+        form.setAttribute("id", "taskForm");
+
+        const addTaskHeader = document.createElement("h3");
+        addTaskHeader.textContent = "Add To Do";
+
+        const taskNameInput = document.createElement("input");
+        taskNameInput.setAttribute("id", "taskNameInput");
+        taskNameInput.setAttribute("type", "text");
+        taskNameInput.setAttribute("placeholder", "Task Name");
+        taskNameInput.setAttribute("onkeyup", "enableSubmitButton()");
+
+        const taskDescriptionInput = document.createElement("input");
+        taskDescriptionInput.setAttribute("id", "taskDescriptionInput");
+        taskDescriptionInput.setAttribute("type", "text");
+        taskDescriptionInput.setAttribute("placeholder", "Description");
+
+        const taskDueDateInput = document.createElement("input");
+        taskDueDateInput.setAttribute("id", "taskDueDateInput");
+        taskDueDateInput.setAttribute("type", "text");
+        taskDueDateInput.setAttribute("placeholder", "Due Date");
+
+        const submitButton = document.createElement("button");
+        submitButton.setAttribute("id", "taskSubmit");
+        submitButton.setAttribute("type", "submit");
+        submitButton.setAttribute("disabled", "");
+
+        const cancelButton = document.createElement("button");
+        cancelButton.setAttribute("id", "cancelToDo");
+        cancelButton.setAttribute("type", "button");
+
+        submitButton.textContent = "Submit";
+        cancelButton.textContent = "Cancel";
+
+        div.append(modalDiv);
+        modalDiv.append(
+            form,
+            addTaskHeader,
+            taskNameInput,
+            taskDescriptionInput,
+            taskDueDateInput,
+            submitButton,
+            cancelButton
+        );
+
+        taskNameInput.addEventListener("keyup", enableSubmitButton);
+
+        return div;
     }
 
-// DELETE TODO
-function deleteToDo(e) {
-    let toDoDelete = e.target.parentNode.getAttribute("id");
-    let { parentObject, targetObject } = checkIfToDoOrProject(toDoDelete);
-    parentObject.splice(parentObject.indexOf(targetObject), 1);
-    console.log(toDoList);
-    let parent = e.target.parentNode;
-    parent.remove();
-}
+    // CLEAR MODAL
+    function clearModal() {
+        let taskName = document.getElementById("taskNameInput");
+        let taskDesciption = document.getElementById("taskDescriptionInput");
+        let taskDueDate = document.getElementById("taskDueDateInput");
+
+        taskName.value = "";
+        taskDesciption.value = "";
+        taskDueDate.value = "";
+    }
+
+    // SHOW MODAL
+    function showModal(modal) {
+        modal.style.display = "flex";
+    }
+
+    // HIDE MODAL
+    function hideModal(modal) {
+        modal.style.display = "none";
+    }
 
 
 // RENDER ELEMENTS
