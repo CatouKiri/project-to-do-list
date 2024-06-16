@@ -126,8 +126,8 @@ function toDoContainer() {
     // DISPLAY TODO PROJECTS
     export function displayToDoProjects() {
         for (const project of projectToDoList) {
+            const a = project.id;
             updateProjectDisplay(project, a);
-            a++;
         }
     }
 
@@ -147,8 +147,6 @@ function toDoContainer() {
         };
 
         const projectTable = document.createElement("table");
-
-        // projectTable.setAttribute("id", a);
 
         toDoProject.textContent = `${project.name}`;
 
