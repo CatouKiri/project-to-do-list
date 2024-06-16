@@ -145,12 +145,20 @@ function toDoContainer() {
             addToDoInsideProjectButtonOnclick(e);
         };
 
+        const deleteProjectButton = document.createElement("button");
+        deleteProjectButton.setAttribute("id", "deleteToDoToProject");
+        deleteProjectButton.textContent = "d";
+        deleteProjectButton.onclick = function (e) {
+            deleteToDo(e);
+        };
+
         const projectTable = document.createElement("table");
 
         toDoProject.textContent = `${project.name}`;
 
         toDoProjectContainer.appendChild(toDoProject);
         toDoProject.appendChild(toDoProjectButton);
+        toDoProject.appendChild(deleteProjectButton);
         toDoProject.appendChild(projectTable);
 
         for (const toDo of project.toDos) {
@@ -168,11 +176,8 @@ function toDoContainer() {
     // DELETE SINGLE TODO BUTTON
     function deleteToDo(e) {
         let toDoDelete = e.target.parentNode.getAttribute("id");
-        console.log(toDoDelete);
         let { parentObject, targetObject } = checkIfToDoOrProject(toDoDelete);
         parentObject.splice(parentObject.indexOf(targetObject), 1);
-        console.log(projectToDoList);
-        // console.log(parentObject);
         let parent = e.target.parentNode;
         parent.remove();
     }
