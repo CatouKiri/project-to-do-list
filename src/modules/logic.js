@@ -105,6 +105,7 @@ export function checkIfToDoOrProject(id) {
                 targetObject,
             };
         }
+
         // Check in each project's toDos
         for (const toDo of project.toDos) {
             if (toDo.id == id) {

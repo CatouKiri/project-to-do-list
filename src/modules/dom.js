@@ -1,7 +1,7 @@
 import "../css/style.css";
 import { toDoList, projectToDoList, toDo, checkIfToDoOrProject } from "./logic.js";
 
-let a = 8;
+let a = 9;
 
 // SIDEBAR
 function sidebar() {
@@ -37,7 +37,6 @@ function sidebar() {
 
     return div;
 }
-
 
 // TO DO CONTAINER
 function toDoContainer() {
@@ -169,9 +168,11 @@ function toDoContainer() {
     // DELETE SINGLE TODO BUTTON
     function deleteToDo(e) {
         let toDoDelete = e.target.parentNode.getAttribute("id");
+        console.log(toDoDelete);
         let { parentObject, targetObject } = checkIfToDoOrProject(toDoDelete);
         parentObject.splice(parentObject.indexOf(targetObject), 1);
-        console.log(toDoList);
+        console.log(projectToDoList);
+        // console.log(parentObject);
         let parent = e.target.parentNode;
         parent.remove();
     }
@@ -179,32 +180,11 @@ function toDoContainer() {
     // CANCEL BUTTON
     function handleCancelToDoButtonClick() {
         const toDoModal = document.getElementById("createModal");
+        clearModal();
         hideModal(toDoModal);
     }
 
-    // ADD BUTTON FUNCTION
-    export function addToDoButtonOnclick() {
-        const addToDoButton = document.getElementById("addTaskBtn");
-        addToDoButton.onclick = handleAddToDoButtonOnClick;
-    }
-
-    export function addToDoInsideProjectButtonOnclick(e) {
-        console.log(e.target.parentNode.getAttribute("id"));
-    }
-
-    // ADD BUTTON
-    function handleAddToDoButtonOnClick() {
-        const toDoModal = document.getElementById("createModal");
-            showModal(toDoModal);
-
-            const cancelToDoButton = document.getElementById("cancelToDo");
-            cancelToDoButton.onclick = handleCancelToDoButtonClick;
-
-            const submitToDoButton = document.getElementById("taskSubmit");
-            submitToDoButton.onclick = handleSubmitToDoButtonClick;
-    }
-
-    // SUBMIT BUTTON
+    // ENABLE SUBMIT BUTTON
     function enableSubmitButton() {
         const submitButton = document.getElementById("taskSubmit");
         submitButton.removeAttribute("disabled");
@@ -215,23 +195,82 @@ function toDoContainer() {
         }
     }
 
-    // SUBMIT BUTTON
+    // ADD SINGLE TODO BUTTON
+    export function addToDoButtonOnclick() {
+        const addToDoButton = document.getElementById("addTaskBtn");
+        addToDoButton.onclick = handleAddToDoButtonOnClick;
+    }
+
+    // ADD SINGLE TODO BUTTON HANDLER
+    function handleAddToDoButtonOnClick() {
+        const toDoModal = document.getElementById("createModal");
+        showModal(toDoModal);
+
+        const cancelToDoButton = document.getElementById("cancelToDo");
+        cancelToDoButton.onclick = handleCancelToDoButtonClick;
+
+        const submitToDoButton = document.getElementById("taskSubmit");
+        submitToDoButton.onclick = handleSubmitToDoButtonClick;
+    }
+
+    // SUBMIT SINGLE TODO BUTTON
     function handleSubmitToDoButtonClick() {
         let taskName = document.querySelector("#taskNameInput").value;
-        let taskDesciption = document.querySelector(
-            "#taskDescriptionInput"
-        ).value;
+        let taskDesciption = document.querySelector("#taskDescriptionInput").value;
         let taskDueDate = document.querySelector("#taskDueDateInput").value;
 
         let newToDo = new toDo(a, taskName, taskDesciption, taskDueDate);
         a++;
+
         toDoList.push(newToDo);
         const toDoModal = document.getElementById("createModal");
         hideModal(toDoModal);
         individualToDoContainer(newToDo);
     }
 
+    // ADD SINGLE BUTTON INSIDE PROJECT
+    export function addToDoInsideProjectButtonOnclick(e) {
+        const projectId = e.target.parentNode.getAttribute("id");
+        const addToDoInsideProjectButton = e.target;
+        addToDoInsideProjectButton.onclick = function() {
+            handleAddToDoInsideProjectOnclick(projectId);
+        }
+    }
+
+    // ADD SINGLE BUTTON INSIDE PROJECT HANDLER
+    function handleAddToDoInsideProjectOnclick(projectId) {
+        const toDoModal = document.getElementById("createModal");
+        showModal(toDoModal);
+
+        const cancelToDoButton = document.getElementById("cancelToDo");
+        cancelToDoButton.onclick = handleCancelToDoButtonClick;
+
+        const submitToDoButton = document.getElementById("taskSubmit");
+        submitToDoButton.onclick = function() {
+            handleSubmitToDoInsideProjectButtonClick(projectId);
+        }
+    }
+
+    // SUBMIT SINGLE BUTTON INSIDE PROJECT
+    function handleSubmitToDoInsideProjectButtonClick(projectId) {
+        let taskName = document.querySelector("#taskNameInput").value;
+        let taskDesciption = document.querySelector("#taskDescriptionInput").value;
+        let taskDueDate = document.querySelector("#taskDueDateInput").value;
+
+        let newToDo = new toDo(a, taskName, taskDesciption, taskDueDate);
+        a++;
+
+        const project = projectToDoList.find(project => project.id === projectId);
+        project.toDos.push(newToDo);
+
+        const toDoModal = document.getElementById("createModal");
+        hideModal(toDoModal);
+        projectToDoContainer(newToDo, projectId);
+    }
+
+
 // MODAL
+
     // CREATE MODAL
     export function createTaskModal() {
         const div = document.createElement("div");
