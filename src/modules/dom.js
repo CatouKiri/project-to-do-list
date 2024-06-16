@@ -228,6 +228,39 @@ function toDoContainer() {
         individualToDoContainer(newToDo);
     }
 
+    // ADD SINGLE PROJECT BUTTON
+    export function addProjectButtonOnclick() {
+        const addProjectButton = document.getElementById("addProjectBtn");
+        addProjectButton.onclick = handleAddProjectButtonOnClick;
+    }
+
+    // ADD SINGLE PROJECT BUTTON HANDLER
+    function handleAddProjectButtonOnClick() {
+        const toDoModal = document.getElementById("createModal");
+        showProjectModal(toDoModal);
+
+        const cancelToDoButton = document.getElementById("cancelToDo");
+        cancelToDoButton.onclick = handleCancelToDoButtonClick;
+
+        const submitToDoButton = document.getElementById("taskSubmit");
+        submitToDoButton.onclick = handleSubmitToDoButtonClick;
+    }
+
+    // // SUBMIT SINGLE TODO BUTTON
+    // function handleSubmitToDoButtonClick() {
+    //     let taskName = document.querySelector("#taskNameInput").value;
+    //     let taskDesciption = document.querySelector("#taskDescriptionInput").value;
+    //     let taskDueDate = document.querySelector("#taskDueDateInput").value;
+
+    //     let newToDo = new toDo(a, taskName, taskDesciption, taskDueDate);
+    //     a++;
+
+    //     toDoList.push(newToDo);
+    //     const toDoModal = document.getElementById("createModal");
+    //     hideModal(toDoModal);
+    //     individualToDoContainer(newToDo);
+    // }
+
     // ADD SINGLE BUTTON INSIDE PROJECT
     export function addToDoInsideProjectButtonOnclick(e) {
         const projectId = e.target.parentNode.getAttribute("id");
@@ -341,6 +374,19 @@ function toDoContainer() {
 
     // SHOW MODAL
     function showModal(modal) {
+        const taskDescriptionInput = document.getElementById("taskDescriptionInput");
+        const taskDueDateInput = document.getElementById("taskDueDateInput");
+        taskDescriptionInput.style.display = "inline-block";
+        taskDueDateInput.style.display = "inline-block";
+        modal.style.display = "flex";
+    }
+
+    // SHOW PROJECT MODAL
+    function showProjectModal(modal) {
+        const taskDescriptionInput = document.getElementById("taskDescriptionInput");
+        const taskDueDateInput = document.getElementById("taskDueDateInput");
+        taskDescriptionInput.style.display = "none";
+        taskDueDateInput.style.display = "none";
         modal.style.display = "flex";
     }
 
