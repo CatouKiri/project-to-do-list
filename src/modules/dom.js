@@ -1,5 +1,6 @@
 import "../css/style.css";
 import { toDoList, projectToDoList, toDo, projectToDo, checkIfToDoOrProject } from "./logic.js";
+import icon from '../imgs/bin.png';
 
 let a = 10;
 
@@ -132,6 +133,11 @@ function toDoContainer() {
 
     // UPDATE DISPLAY TODO PROJECTS
     function updateProjectDisplay(project, a) {
+
+        const deleteIcon = new Image();
+        deleteIcon.src = icon;
+        deleteIcon.setAttribute("width", "10px");
+
         const toDoProjectContainer = document.querySelector("#toDoProject");
 
         const toDoProject = document.createElement("div");
@@ -147,10 +153,12 @@ function toDoContainer() {
 
         const deleteProjectButton = document.createElement("button");
         deleteProjectButton.setAttribute("id", "deleteToDoToProject");
-        deleteProjectButton.textContent = "d";
         deleteProjectButton.onclick = function (e) {
             deleteToDo(e);
         };
+
+        const projectDescription = document.createElement("div");
+        projectDescription.textContent = `${project.projectDescription}`;
 
         const projectTable = document.createElement("table");
 
@@ -159,6 +167,8 @@ function toDoContainer() {
         toDoProjectContainer.appendChild(toDoProject);
         toDoProject.appendChild(toDoProjectButton);
         toDoProject.appendChild(deleteProjectButton);
+        deleteProjectButton.appendChild(deleteIcon);
+        toDoProject.appendChild(projectDescription);
         toDoProject.appendChild(projectTable);
 
         for (const toDo of project.toDos) {
