@@ -76,9 +76,11 @@ export function toDo(id, title, description, dueDate) {
 }
 
 // PROJECT TODO CONSTRUCTOR
-function projectToDo(name, projectDescription) {
+export function projectToDo(id, name, projectDescription, toDos = []) {
+    this.id = id;
     this.name = name;
     this.projectDescription = projectDescription;
+    this.toDos = toDos;
 }
 
 // CHECK IF TO BE DELETED IS IN TODOLIST OR TODOPROJECT

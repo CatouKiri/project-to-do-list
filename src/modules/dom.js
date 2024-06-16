@@ -1,7 +1,7 @@
 import "../css/style.css";
-import { toDoList, projectToDoList, toDo, checkIfToDoOrProject } from "./logic.js";
+import { toDoList, projectToDoList, toDo, projectToDo, checkIfToDoOrProject } from "./logic.js";
 
-let a = 9;
+let a = 10;
 
 // SIDEBAR
 function sidebar() {
@@ -225,6 +225,7 @@ function toDoContainer() {
         toDoList.push(newToDo);
         const toDoModal = document.getElementById("createModal");
         hideModal(toDoModal);
+        clearModal();
         individualToDoContainer(newToDo);
     }
 
@@ -243,23 +244,23 @@ function toDoContainer() {
         cancelToDoButton.onclick = handleCancelToDoButtonClick;
 
         const submitToDoButton = document.getElementById("taskSubmit");
-        submitToDoButton.onclick = handleSubmitToDoButtonClick;
+        submitToDoButton.onclick = handleSubmitProjectButtonClick;
     }
 
-    // // SUBMIT SINGLE TODO BUTTON
-    // function handleSubmitToDoButtonClick() {
-    //     let taskName = document.querySelector("#taskNameInput").value;
-    //     let taskDesciption = document.querySelector("#taskDescriptionInput").value;
-    //     let taskDueDate = document.querySelector("#taskDueDateInput").value;
+    // SUBMIT SINGLE PROJECT BUTTON
+    function handleSubmitProjectButtonClick() {
+        let taskName = document.querySelector("#taskNameInput").value;
+        let taskDesciption = document.querySelector("#taskDescriptionInput").value;
 
-    //     let newToDo = new toDo(a, taskName, taskDesciption, taskDueDate);
-    //     a++;
+        let newToDo = new projectToDo(a, taskName, taskDesciption);
+        a++;
 
-    //     toDoList.push(newToDo);
-    //     const toDoModal = document.getElementById("createModal");
-    //     hideModal(toDoModal);
-    //     individualToDoContainer(newToDo);
-    // }
+        projectToDoList.push(newToDo);
+        const toDoModal = document.getElementById("createModal");
+        hideModal(toDoModal);
+        clearModal();
+        updateProjectDisplay(newToDo, newToDo.id);
+    }
 
     // ADD SINGLE BUTTON INSIDE PROJECT
     export function addToDoInsideProjectButtonOnclick(e) {
@@ -293,11 +294,12 @@ function toDoContainer() {
         let newToDo = new toDo(a, taskName, taskDesciption, taskDueDate);
         a++;
 
-        const project = projectToDoList.find(project => project.id === projectId);
+        const project = projectToDoList.find(project => project.id == projectId);
         project.toDos.push(newToDo);
 
         const toDoModal = document.getElementById("createModal");
         hideModal(toDoModal);
+        clearModal();
         projectToDoContainer(newToDo, projectId);
     }
 
@@ -374,18 +376,14 @@ function toDoContainer() {
 
     // SHOW MODAL
     function showModal(modal) {
-        const taskDescriptionInput = document.getElementById("taskDescriptionInput");
         const taskDueDateInput = document.getElementById("taskDueDateInput");
-        taskDescriptionInput.style.display = "inline-block";
         taskDueDateInput.style.display = "inline-block";
         modal.style.display = "flex";
     }
 
     // SHOW PROJECT MODAL
     function showProjectModal(modal) {
-        const taskDescriptionInput = document.getElementById("taskDescriptionInput");
         const taskDueDateInput = document.getElementById("taskDueDateInput");
-        taskDescriptionInput.style.display = "none";
         taskDueDateInput.style.display = "none";
         modal.style.display = "flex";
     }
