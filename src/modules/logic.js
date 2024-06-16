@@ -68,11 +68,12 @@ const projectToDoList = [
 ]
 
 // TODO CONSTRUCTOR
-export function toDo(id, title, description, dueDate) {
+export function toDo(id, title, description, dueDate, completed = false) {
     this.id = id;
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
+    this.completed = completed;
 }
 
 // PROJECT TODO CONSTRUCTOR

@@ -82,6 +82,7 @@ function toDoContainer() {
         updateDisplayToDoList(toDo, toDoContainer);
     }
 
+
     // UPDATE DISPLAY TODO LIST
     function updateDisplayToDoList(toDo, toDoContainer) {
         const newRow = document.createElement("tr");
@@ -103,6 +104,9 @@ function toDoContainer() {
 
         const toDoEdit = document.createElement("td");
         toDoEdit.setAttribute("id", "tdEdit");
+        toDoEdit.onclick = function (e) {
+            editTodo(e);
+        };
 
         const toDoDelete = document.createElement("td");
         toDoDelete.setAttribute("id", "tdDelete");
@@ -230,11 +234,11 @@ function toDoContainer() {
 
     // SUBMIT SINGLE TODO BUTTON
     function handleSubmitToDoButtonClick() {
-        let taskName = document.querySelector("#taskNameInput").value;
-        let taskDesciption = document.querySelector("#taskDescriptionInput").value;
-        let taskDueDate = document.querySelector("#taskDueDateInput").value;
+        const taskName = document.querySelector("#taskNameInput").value;
+        const taskDesciption = document.querySelector("#taskDescriptionInput").value;
+        const taskDueDate = document.querySelector("#taskDueDateInput").value;
 
-        let newToDo = new toDo(a, taskName, taskDesciption, taskDueDate);
+        const newToDo = new toDo(a, taskName, taskDesciption, taskDueDate);
         a++;
 
         toDoList.push(newToDo);
@@ -318,6 +322,29 @@ function toDoContainer() {
         projectToDoContainer(newToDo, projectId);
     }
 
+    // EDIT TODO BUTTON
+    function editTodo(e) {
+        let toDoEdit = e.target.parentNode.getAttribute("id");
+        let { parentObject, targetObject } = checkIfToDoOrProject(toDoEdit);
+
+        const taskName = document.getElementById("taskNameInput");
+        taskName.value = `${targetObject.title}`;
+        const taskDesciption = document.getElementById("taskDescriptionInput");
+        taskDesciption.value = `${targetObject.description}`;
+        const taskDueDate = document.getElementById("taskDueDateInput");
+        taskDueDate.value = `${targetObject.dueDate}`;
+
+        const toDoModal = document.getElementById("createModal");
+        showModal(toDoModal);
+
+        const cancelToDoButton = document.getElementById("cancelToDo");
+        cancelToDoButton.onclick = handleCancelToDoButtonClick;
+
+        const submitToDoButton = document.getElementById("taskSubmit");
+        submitToDoButton.onclick = handleSubmitEditedToDoButtonClick;
+    }
+
+    // EDIT TODO BUTTON HANDLER
 
 // MODAL
 
@@ -407,7 +434,6 @@ function toDoContainer() {
     function hideModal(modal) {
         modal.style.display = "none";
     }
-
 
 // RENDER ELEMENTS
 export default function render() {
