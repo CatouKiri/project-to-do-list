@@ -157,6 +157,14 @@ function toDoContainer() {
         toDoProject.setAttribute("class", "divProjectContainer");
         toDoProject.setAttribute("id", a);
 
+        const toDoProjectName = document.createElement("div");
+        toDoProjectName.setAttribute("id", "divProjectName");
+        toDoProjectName.textContent = `${project.name}`;
+
+        const toDoProjectDescription = document.createElement("div");
+        toDoProjectDescription.setAttribute("id", "divProjectDescription");
+        toDoProjectDescription.textContent = `${project.projectDescription}`;
+
         const toDoProjectButton = document.createElement("button");
         toDoProjectButton.setAttribute("id", "addIndividualToDoToProject");
         toDoProjectButton.textContent = "+";
@@ -176,20 +184,18 @@ function toDoContainer() {
             editProject(e);
         };
 
-        const projectDescription = document.createElement("div");
-        projectDescription.textContent = `${project.projectDescription}`;
 
         const projectTable = document.createElement("table");
 
-        toDoProject.textContent = `${project.name}`;
 
         toDoProjectContainer.appendChild(toDoProject);
-        toDoProject.appendChild(toDoProjectButton);
-        toDoProject.appendChild(deleteProjectButton);
+        toDoProject.appendChild(toDoProjectName);
+        toDoProjectName.appendChild(toDoProjectButton);
+        toDoProjectName.appendChild(deleteProjectButton);
         deleteProjectButton.appendChild(deleteI);
-        toDoProject.appendChild(editProjectButton);
+        toDoProjectName.appendChild(editProjectButton);
         editProjectButton.appendChild(editI);
-        toDoProject.appendChild(projectDescription);
+        toDoProject.appendChild(toDoProjectDescription);
         toDoProject.appendChild(projectTable);
 
         for (const toDo of project.toDos) {
@@ -405,6 +411,7 @@ function toDoContainer() {
 
     // EDIT TODO BUTTON
     function editProject(e) {
+        console.log(e.target.parentNode.getAttribute("id"));
     }
 
 // MODAL
