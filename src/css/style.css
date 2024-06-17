@@ -52,8 +52,11 @@ body {
     display: flex;
     flex-direction: column;
     width: 60%;
-    padding-top: 50px;
     padding-bottom: 50px;
+}
+
+#toDoList{
+    padding-top: 50px;
 }
 
 h2 {

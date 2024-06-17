@@ -3,14 +3,14 @@ const toDoList = [
         id: "1",
         title: "Bench Press",
         description: "Do 10 bench press with 40lbs dumbells",
-        dueDate: "12-31-2024",
+        dueDate: "2024-02-09",
         completed: false
     },
     {
         id: "2",
         title: "Sweep floor",
         description: "",
-        dueDate: "07-14-2024",
+        dueDate: "2024-07-14",
         completed: false
     }
 ]
@@ -25,21 +25,21 @@ const projectToDoList = [
                 id: "3",
                 title: "Lesson 1",
                 description: "What is HTML?",
-                dueDate: "06-01-2024",
+                dueDate: "2024-06-01",
                 completed: false
             },
             {
                 id: "4",
                 title: "Lesson 2",
                 description: "What is CSS?",
-                dueDate: "07-01-2024",
+                dueDate: "2024-07-01",
                 completed: false
             },
             {
                 id: "5",
                 title: "Lesson 3",
                 description: "What is Javascript?",
-                dueDate: "08-01-2024",
+                dueDate: "2024-08-01",
                 completed: false
             }
         ]
@@ -53,14 +53,14 @@ const projectToDoList = [
                 id: "6",
                 title: "Day 1",
                 description: "Upper Body Exercise",
-                dueDate: "06-01-2024",
+                dueDate: "2024-06-01",
                 completed: false
             },
             {
                 id: "7",
                 title: "Day 2",
                 description: "Lower Exercise",
-                dueDate: "07-01-2024",
+                dueDate: "2024-07-01",
                 completed: false
             }
         ],
