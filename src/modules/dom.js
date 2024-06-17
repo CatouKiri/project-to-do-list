@@ -170,7 +170,8 @@ function toDoContainer() {
         toDoProjectButton.setAttribute("id", "addIndividualToDoToProject");
         toDoProjectButton.textContent = "+";
         toDoProjectButton.onclick = function (e) {
-            addToDoInsideProjectButtonOnclick(e);
+            const b = e.target.parentNode;
+            addToDoInsideProjectButtonOnclick(b);
         };
 
         const deleteProjectButton = document.createElement("button");
@@ -314,8 +315,8 @@ function toDoContainer() {
 
     // ADD SINGLE BUTTON INSIDE PROJECT
     export function addToDoInsideProjectButtonOnclick(e) {
-        const projectId = e.target.parentNode.getAttribute("id");
-        const addToDoInsideProjectButton = e.target;
+        const projectId = e.parentNode.getAttribute("id");
+        const addToDoInsideProjectButton = e;
         addToDoInsideProjectButton.onclick = function() {
             handleAddToDoInsideProjectOnclick(projectId);
         }
