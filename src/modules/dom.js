@@ -173,7 +173,7 @@ function toDoContainer() {
         const editProjectButton = document.createElement("button");
         editProjectButton.setAttribute("id", "editToDoToProject");
         editProjectButton.onclick = function (e) {
-            editToDo(e);
+            editProject(e);
         };
 
         const projectDescription = document.createElement("div");
@@ -401,6 +401,10 @@ function toDoContainer() {
 
         const taskDueDate = parentRow.querySelector("#tdDate");
         taskDueDate.textContent = `${dueDate}`;
+    }
+
+    // EDIT TODO BUTTON
+    function editProject(e) {
     }
 
 // MODAL

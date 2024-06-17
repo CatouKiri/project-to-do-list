@@ -122,6 +122,10 @@ td {
     margin-left: 10px;
 }
 
+img {
+    pointer-events: none;
+}
+
 /* MODAL */
 #createModal {
     display: none;
