@@ -1,6 +1,7 @@
 import "../css/style.css";
 import { toDoList, projectToDoList, toDo, projectToDo, checkIfToDoOrProject } from "./logic.js";
-import icon from '../imgs/bin.png';
+import deleteIcon from '../imgs/bin.png';
+import editIcon from '../imgs/editing.png';
 
 let a = 10;
 
@@ -82,7 +83,6 @@ function toDoContainer() {
         updateDisplayToDoList(toDo, toDoContainer);
     }
 
-
     // UPDATE DISPLAY TODO LIST
     function updateDisplayToDoList(toDo, toDoContainer) {
         const newRow = document.createElement("tr");
@@ -143,9 +143,13 @@ function toDoContainer() {
     // UPDATE DISPLAY TODO PROJECTS
     function updateProjectDisplay(project, a) {
 
-        const deleteIcon = new Image();
-        deleteIcon.src = icon;
-        deleteIcon.setAttribute("width", "10px");
+        const deleteI = new Image();
+        deleteI.src = deleteIcon;
+        deleteI.setAttribute("width", "10px");
+
+        const editI = new Image();
+        editI.src = editIcon;
+        editI.setAttribute("width", "10px");
 
         const toDoProjectContainer = document.querySelector("#toDoProject");
 
@@ -166,6 +170,12 @@ function toDoContainer() {
             deleteToDo(e);
         };
 
+        const editProjectButton = document.createElement("button");
+        editProjectButton.setAttribute("id", "editToDoToProject");
+        editProjectButton.onclick = function (e) {
+            editToDo(e);
+        };
+
         const projectDescription = document.createElement("div");
         projectDescription.textContent = `${project.projectDescription}`;
 
@@ -176,7 +186,9 @@ function toDoContainer() {
         toDoProjectContainer.appendChild(toDoProject);
         toDoProject.appendChild(toDoProjectButton);
         toDoProject.appendChild(deleteProjectButton);
-        deleteProjectButton.appendChild(deleteIcon);
+        deleteProjectButton.appendChild(deleteI);
+        toDoProject.appendChild(editProjectButton);
+        editProjectButton.appendChild(editI);
         toDoProject.appendChild(projectDescription);
         toDoProject.appendChild(projectTable);
 
