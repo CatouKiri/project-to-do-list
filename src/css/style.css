@@ -109,6 +109,10 @@ td {
     padding-top: 30px;
 }
 
+.divProjectContainer div {
+    padding-top: 3px;
+}
+
 #divDescription {
     margin: 0px;
     padding-top: 5px;
