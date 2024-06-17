@@ -115,7 +115,8 @@ function toDoContainer() {
         const toDoDelete = document.createElement("td");
         toDoDelete.setAttribute("id", "tdDelete");
         toDoDelete.onclick = function (e) {
-            deleteToDo(e);
+            const b = e.target;
+            deleteToDo(b);
         };
 
         toDoContainer.appendChild(newRow).className = "table-row";
@@ -175,7 +176,8 @@ function toDoContainer() {
         const deleteProjectButton = document.createElement("button");
         deleteProjectButton.setAttribute("id", "deleteToDoToProject");
         deleteProjectButton.onclick = function (e) {
-            deleteToDo(e);
+            const b = e.target.parentNode;
+            deleteToDo(b);
         };
 
         const editProjectButton = document.createElement("button");
@@ -184,9 +186,7 @@ function toDoContainer() {
             editProject(e);
         };
 
-
         const projectTable = document.createElement("table");
-
 
         toDoProjectContainer.appendChild(toDoProject);
         toDoProject.appendChild(toDoProjectName);
@@ -212,10 +212,10 @@ function toDoContainer() {
 // BUTTONS
     // DELETE SINGLE TODO BUTTON
     function deleteToDo(e) {
-        let toDoDelete = e.target.parentNode.getAttribute("id");
+        let toDoDelete = e.parentNode.getAttribute("id");
         let { parentObject, targetObject } = checkIfToDoOrProject(toDoDelete);
         parentObject.splice(parentObject.indexOf(targetObject), 1);
-        let parent = e.target.parentNode;
+        let parent = e.parentNode;
         parent.remove();
     }
 
@@ -367,7 +367,6 @@ function toDoContainer() {
         taskDueDate.value = `${targetObject.dueDate}`;
 
         const toDoModal = document.getElementById("createModal");
-        // disableButton();
         showModal(toDoModal);
 
         const cancelToDoButton = document.getElementById("cancelToDo");
@@ -411,11 +410,52 @@ function toDoContainer() {
 
     // EDIT TODO BUTTON
     function editProject(e) {
-        console.log(e.target.parentNode.getAttribute("id"));
+        let projectEdit = e.target.parentNode.parentNode.getAttribute("id");
+        let { parentObject, targetObject } = checkIfToDoOrProject(projectEdit);
+
+        const taskName = document.getElementById("taskNameInput");
+        taskName.value = `${targetObject.name}`;
+        const taskDesciption = document.getElementById("taskDescriptionInput");
+        taskDesciption.value = `${targetObject.projectDescription}`;
+
+        const toDoModal = document.getElementById("createModal");
+        showProjectModal(toDoModal);
+
+        const cancelToDoButton = document.getElementById("cancelToDo");
+        cancelToDoButton.onclick = handleCancelToDoButtonClick;
+
+        const submitToDoButton = document.getElementById("taskSubmit");
+        submitToDoButton.onclick = function () {
+            submitEditedProjectButtonClick(targetObject);
+        }
+    }
+
+    // EDIT TODO BUTTON HANDLER
+    function submitEditedProjectButtonClick(targetObject) {
+        const taskName = document.querySelector("#taskNameInput").value;
+        const taskDesciption = document.querySelector("#taskDescriptionInput").value;
+
+        targetObject.name = taskName;
+        targetObject.projectDescription = taskDesciption;
+
+        const toDoModal = document.getElementById("createModal");
+        hideModal(toDoModal);
+        clearModal();
+        updateProjectContainer(targetObject.id, taskName, taskDesciption);
+    }
+
+    // UPDATE TODO CONTAINER
+    function updateProjectContainer(id, name, description) {
+        const parentRow = document.getElementById(id);
+
+        const taskName = parentRow.querySelector("#divProjectName");
+        taskName.textContent = `${name}`;
+
+        const taskDesciption = parentRow.querySelector("#divDescription");
+        taskDesciption.textContent = `${description}`;
     }
 
 // MODAL
-
     // CREATE MODAL
     export function createTaskModal() {
         const div = document.createElement("div");
