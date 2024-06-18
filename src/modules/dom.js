@@ -3,6 +3,7 @@ import { toDoList, projectToDoList, toDo, projectToDo, checkIfToDoOrProject } fr
 import deleteIcon from '../imgs/bin.png';
 import editIcon from '../imgs/editing.png';
 import { format } from "date-fns";
+import { el } from "date-fns/locale";
 
 let a = 10;
 
@@ -127,8 +128,14 @@ function toDoContainer() {
         newRow.appendChild(toDoNameAndDescription);
         toDoNameAndDescription.appendChild(toDoName).textContent = `${toDo.title}`;
         toDoNameAndDescription.appendChild(toDoDescription).textContent = `${toDo.description}`;
-        newRow.appendChild(toDoDueDate).textContent = `${formatDate(toDo.dueDate)}`;
-        // const taskDueDate = formatDate(date);
+
+        if(!toDo.dueDate){
+            newRow.appendChild(toDoDueDate);
+        }
+        else {
+            newRow.appendChild(toDoDueDate).textContent = `${formatDate(toDo.dueDate)}`;
+        }
+
         newRow.appendChild(toDoEdit).textContent = `Edit`;
         newRow.appendChild(toDoDelete).textContent = `Delete`;
 
@@ -496,7 +503,7 @@ function toDoContainer() {
         const taskDueDateInput = document.createElement("input");
         taskDueDateInput.setAttribute("id", "taskDueDateInput");
         taskDueDateInput.setAttribute("type", "date");
-        taskDueDateInput.setAttribute("placeholder", "Due Date");
+        // taskDueDateInput.required = true;
 
         const submitButton = document.createElement("button");
         submitButton.setAttribute("id", "taskSubmit");

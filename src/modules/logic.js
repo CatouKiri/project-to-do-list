@@ -3,14 +3,14 @@ const toDoList = [
         id: "1",
         title: "Bench Press",
         description: "Do 10 bench press with 40lbs dumbells",
-        dueDate: "2024-02-09",
+        dueDate: "2024-07-14",
         completed: false
     },
     {
         id: "2",
         title: "Sweep floor",
         description: "",
-        dueDate: "2024-07-14",
+        dueDate: "2024-12-06",
         completed: false
     }
 ]
