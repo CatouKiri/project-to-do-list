@@ -131,11 +131,19 @@ function toDoContainer() {
 
         toDoContainer.appendChild(newRow).className = "table-row";
 
+        if(toDo.completed) {
+            checkBox.setAttribute("checked", "");
+            toDoName.setAttribute("style", "text-decoration: line-through;");
+            toDoDescription.setAttribute("style", "text-decoration: line-through;");
+            toDoDueDate.setAttribute("style", "text-decoration: line-through;");
+        }
+
         newRow.appendChild(checkBoxColumn);
         checkBoxColumn.appendChild(checkBox);
         newRow.appendChild(toDoNameAndDescription);
         toDoNameAndDescription.appendChild(toDoName).textContent = `${toDo.title}`;
         toDoNameAndDescription.appendChild(toDoDescription).textContent = `${toDo.description}`;
+
 
         if(!toDo.dueDate){
             newRow.appendChild(toDoDueDate).textContent = "No Due Date";
@@ -234,7 +242,6 @@ function toDoContainer() {
             editProjectButton,
         };
     }
-
 
     // SELECT THE PROJECT TODO TABLE CONTAINER
     function projectToDoContainer(toDo, a) {

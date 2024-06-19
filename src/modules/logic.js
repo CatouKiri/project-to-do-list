@@ -13,7 +13,7 @@ if (!localStorage.getItem('toDoList')) {
             title: "Bench Press",
             description: "Do 10 bench press with 40lbs dumbells",
             dueDate: "2024-07-14",
-            completed: false
+            completed: true
         },
         {
             id: "2",
