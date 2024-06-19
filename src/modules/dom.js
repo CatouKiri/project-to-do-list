@@ -233,9 +233,6 @@ function toDoContainer() {
         let toDoDelete = e.parentNode.getAttribute("id");
         let { parentObject, targetObject } = checkIfToDoOrProject(toDoDelete);
         parentObject.splice(parentObject.indexOf(targetObject), 1);
-        // console.log(toDoList);
-        // console.log(projectToDoList);
-        // let { parentObject, targetObject } = checkIfToDoOrProject(id);
         if (parentObject == toDoList) {
             localStorage.setItem("toDoList", JSON.stringify(toDoList));
         }
@@ -296,8 +293,6 @@ function toDoContainer() {
         const newToDo = new toDo(a, taskName, taskDesciption, taskDueDate);
         a++;
         localStorage.setItem('a', a);
-
-        console.log(a);
 
         toDoList.push(newToDo);
 

@@ -1,5 +1,6 @@
 // localStorage.removeItem("a");
 // localStorage.removeItem("toDoList");
+// localStorage.clear();
 
 // todoList storage
 let toDoList = JSON.parse(localStorage.getItem('toDoList')) || [];
