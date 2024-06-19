@@ -459,6 +459,9 @@ function toDoContainer() {
         if (parentObject == toDoList) {
             localStorage.setItem("toDoList", JSON.stringify(toDoList));
         }
+        else {
+            localStorage.setItem("projectToDoList", JSON.stringify(projectToDoList));
+        }
     }
 
     // EDIT TODO BUTTON
