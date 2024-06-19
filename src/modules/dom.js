@@ -233,6 +233,12 @@ function toDoContainer() {
         let toDoDelete = e.parentNode.getAttribute("id");
         let { parentObject, targetObject } = checkIfToDoOrProject(toDoDelete);
         parentObject.splice(parentObject.indexOf(targetObject), 1);
+        // console.log(toDoList);
+        // console.log(projectToDoList);
+        // let { parentObject, targetObject } = checkIfToDoOrProject(id);
+        if (parentObject == toDoList) {
+            localStorage.setItem("toDoList", JSON.stringify(toDoList));
+        }
         let parent = e.parentNode;
         parent.remove();
     }
