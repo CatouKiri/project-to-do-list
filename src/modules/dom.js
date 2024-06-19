@@ -446,6 +446,13 @@ function toDoContainer() {
         else {
             taskDueDate.textContent = `${formatDate(dueDate)}`;
         }
+
+
+        let { parentObject, targetObject } = checkIfToDoOrProject(id);
+        if (parentObject == toDoList) {
+            localStorage.setItem("toDoList", JSON.stringify(toDoList));
+        }
+        // localStorage.setItem("toDoList", JSON.stringify(toDoList));
     }
 
     // EDIT TODO BUTTON
