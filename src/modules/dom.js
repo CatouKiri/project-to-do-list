@@ -236,6 +236,9 @@ function toDoContainer() {
         if (parentObject == toDoList) {
             localStorage.setItem("toDoList", JSON.stringify(toDoList));
         }
+        else {
+            localStorage.setItem("projectToDoList", JSON.stringify(projectToDoList));
+        }
         let parent = e.parentNode;
         parent.remove();
     }
@@ -340,9 +343,12 @@ function toDoContainer() {
         localStorage.setItem('a', a);
 
         projectToDoList.push(newToDo);
+        localStorage.setItem("projectToDoList", JSON.stringify(projectToDoList));
+
         const toDoModal = document.getElementById("createModal");
         hideModal(toDoModal);
         clearModal();
+
         updateProjectDisplay(newToDo, newToDo.id);
     }
 
@@ -382,6 +388,7 @@ function toDoContainer() {
 
         const project = projectToDoList.find(project => project.id == projectId);
         project.toDos.push(newToDo);
+        localStorage.setItem("projectToDoList", JSON.stringify(projectToDoList));
 
         const toDoModal = document.getElementById("createModal");
         hideModal(toDoModal);
@@ -448,12 +455,10 @@ function toDoContainer() {
             taskDueDate.textContent = `${formatDate(dueDate)}`;
         }
 
-
         let { parentObject, targetObject } = checkIfToDoOrProject(id);
         if (parentObject == toDoList) {
             localStorage.setItem("toDoList", JSON.stringify(toDoList));
         }
-        // localStorage.setItem("toDoList", JSON.stringify(toDoList));
     }
 
     // EDIT TODO BUTTON
@@ -531,7 +536,6 @@ function toDoContainer() {
         const taskDueDateInput = document.createElement("input");
         taskDueDateInput.setAttribute("id", "taskDueDateInput");
         taskDueDateInput.setAttribute("type", "date");
-        // taskDueDateInput.required = true;
 
         const submitButton = document.createElement("button");
         submitButton.setAttribute("id", "taskSubmit");

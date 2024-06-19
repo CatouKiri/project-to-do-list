@@ -25,57 +25,64 @@ if (!localStorage.getItem('toDoList')) {
     ]
 }
 
-const projectToDoList = [
-    {
-        id: "8",
-        name: "The Odin Project",
-        projectDescription: "Finish Programming Course",
-        toDos:[
-            {
-                id: "3",
-                title: "Lesson 1",
-                description: "What is HTML?",
-                dueDate: "2024-06-01",
-                completed: false
-            },
-            {
-                id: "4",
-                title: "Lesson 2",
-                description: "What is CSS?",
-                dueDate: "2024-07-01",
-                completed: false
-            },
-            {
-                id: "5",
-                title: "Lesson 3",
-                description: "What is Javascript?",
-                dueDate: "2024-08-01",
-                completed: false
-            }
-        ]
-    },
-    {
-        id: "9",
-        name: "5 Day Dumbell Program",
-        projectDescription: "Exercise Program",
-        toDos:[
-            {
-                id: "6",
-                title: "Day 1",
-                description: "Upper Body Exercise",
-                dueDate: "2024-06-01",
-                completed: false
-            },
-            {
-                id: "7",
-                title: "Day 2",
-                description: "Lower Exercise",
-                dueDate: "2024-07-01",
-                completed: false
-            }
-        ],
-    }
-]
+// todoList storage
+let projectToDoList = JSON.parse(localStorage.getItem('projectToDoList')) || [];
+
+// if there is no local storage, populate todoList with example items
+if (!localStorage.getItem('projectToDoList')) {
+    projectToDoList = [
+        {
+            id: "8",
+            name: "The Odin Project",
+            projectDescription: "Finish Programming Course",
+            toDos:[
+                {
+                    id: "3",
+                    title: "Lesson 1",
+                    description: "What is HTML?",
+                    dueDate: "2024-06-01",
+                    completed: false
+                },
+                {
+                    id: "4",
+                    title: "Lesson 2",
+                    description: "What is CSS?",
+                    dueDate: "2024-07-01",
+                    completed: false
+                },
+                {
+                    id: "5",
+                    title: "Lesson 3",
+                    description: "What is Javascript?",
+                    dueDate: "2024-08-01",
+                    completed: false
+                }
+            ]
+        },
+        {
+            id: "9",
+            name: "5 Day Dumbell Program",
+            projectDescription: "Exercise Program",
+            toDos:[
+                {
+                    id: "6",
+                    title: "Day 1",
+                    description: "Upper Body Exercise",
+                    dueDate: "2024-06-01",
+                    completed: false
+                },
+                {
+                    id: "7",
+                    title: "Day 2",
+                    description: "Lower Exercise",
+                    dueDate: "2024-07-01",
+                    completed: false
+                }
+            ],
+        }
+    ]
+}
+
 
 // TODO CONSTRUCTOR
 export function toDo(id, title, description, dueDate, completed = false) {
