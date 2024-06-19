@@ -5,7 +5,15 @@ import editIcon from '../imgs/editing.png';
 import { format } from "date-fns";
 import { el } from "date-fns/locale";
 
-let a = 10;
+// let a = 10;
+// todoList storage
+let a = localStorage.getItem('a') || '';
+
+// if there is no local storage, populate todoList with example items
+if (!localStorage.getItem('a')) {
+    a = 10;
+    localStorage.setItem('a', a);
+}
 
 // SIDEBAR
 function sidebar() {
@@ -130,7 +138,7 @@ function toDoContainer() {
         toDoNameAndDescription.appendChild(toDoDescription).textContent = `${toDo.description}`;
 
         if(!toDo.dueDate){
-            newRow.appendChild(toDoDueDate);
+            newRow.appendChild(toDoDueDate).textContent = "No Due Date";
         }
         else {
             newRow.appendChild(toDoDueDate).textContent = `${formatDate(toDo.dueDate)}`;
@@ -281,10 +289,14 @@ function toDoContainer() {
 
         const newToDo = new toDo(a, taskName, taskDesciption, taskDueDate);
         a++;
+        localStorage.setItem('a', a);
+
+        console.log(a);
 
         toDoList.push(newToDo);
 
         const toDoModal = document.getElementById("createModal");
+        localStorage.setItem("toDoList", JSON.stringify(toDoList));
         hideModal(toDoModal);
         clearModal();
         individualToDoContainer(newToDo);
@@ -324,6 +336,7 @@ function toDoContainer() {
 
         let newToDo = new projectToDo(a, taskName, taskDesciption);
         a++;
+        localStorage.setItem('a', a);
 
         projectToDoList.push(newToDo);
         const toDoModal = document.getElementById("createModal");
@@ -364,6 +377,7 @@ function toDoContainer() {
 
         let newToDo = new toDo(a, taskName, taskDesciption, taskDueDate);
         a++;
+        localStorage.setItem('a', a);
 
         const project = projectToDoList.find(project => project.id == projectId);
         project.toDos.push(newToDo);
@@ -425,7 +439,13 @@ function toDoContainer() {
         taskDesciption.textContent = `${description}`;
 
         const taskDueDate = parentRow.querySelector("#tdDate");
-        taskDueDate.textContent = `${dueDate}`;
+
+        if(!dueDate){
+            taskDueDate.textContent = "No Due Date";
+        }
+        else {
+            taskDueDate.textContent = `${formatDate(dueDate)}`;
+        }
     }
 
     // EDIT TODO BUTTON
