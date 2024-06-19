@@ -161,14 +161,6 @@ function toDoContainer() {
     // UPDATE DISPLAY TODO PROJECTS
     function updateProjectDisplay(project, a) {
 
-        const deleteI = new Image();
-        deleteI.src = deleteIcon;
-        deleteI.setAttribute("width", "10px");
-
-        const editI = new Image();
-        editI.src = editIcon;
-        editI.setAttribute("width", "10px");
-
         const toDoProjectContainer = document.querySelector("#toDoProject");
 
         const toDoProject = document.createElement("div");
@@ -182,6 +174,35 @@ function toDoContainer() {
         const toDoProjectDescription = document.createElement("div");
         toDoProjectDescription.setAttribute("id", "divProjectDescription");
         toDoProjectDescription.textContent = `${project.projectDescription}`;
+
+
+        let { toDoProjectButton, deleteProjectButton, editProjectButton, deleteI, editI} = addButtonsInProjectName();
+
+        const projectTable = document.createElement("table");
+
+        toDoProjectContainer.appendChild(toDoProject);
+        toDoProject.appendChild(toDoProjectName);
+        toDoProjectName.appendChild(toDoProjectButton);
+        toDoProjectName.appendChild(deleteProjectButton);
+        toDoProjectName.appendChild(editProjectButton);
+        toDoProject.appendChild(toDoProjectDescription);
+        toDoProject.appendChild(projectTable);
+
+        for (const toDo of project.toDos) {
+            projectToDoContainer(toDo, a);
+        }
+    }
+
+    // ADD BUTTONS INSIDE PROJECT NAME
+    function addButtonsInProjectName() {
+
+        const deleteI = new Image();
+        deleteI.src = deleteIcon;
+        deleteI.setAttribute("width", "10px");
+
+        const editI = new Image();
+        editI.src = editIcon;
+        editI.setAttribute("width", "10px");
 
         const toDoProjectButton = document.createElement("button");
         toDoProjectButton.setAttribute("id", "addIndividualToDoToProject");
@@ -204,22 +225,16 @@ function toDoContainer() {
             editProject(e);
         };
 
-        const projectTable = document.createElement("table");
-
-        toDoProjectContainer.appendChild(toDoProject);
-        toDoProject.appendChild(toDoProjectName);
-        toDoProjectName.appendChild(toDoProjectButton);
-        toDoProjectName.appendChild(deleteProjectButton);
         deleteProjectButton.appendChild(deleteI);
-        toDoProjectName.appendChild(editProjectButton);
         editProjectButton.appendChild(editI);
-        toDoProject.appendChild(toDoProjectDescription);
-        toDoProject.appendChild(projectTable);
 
-        for (const toDo of project.toDos) {
-            projectToDoContainer(toDo, a);
-        }
+        return {
+            toDoProjectButton,
+            deleteProjectButton,
+            editProjectButton,
+        };
     }
+
 
     // SELECT THE PROJECT TODO TABLE CONTAINER
     function projectToDoContainer(toDo, a) {
@@ -507,8 +522,15 @@ function toDoContainer() {
         const taskName = parentRow.querySelector("#divProjectName");
         taskName.textContent = `${name}`;
 
-        const taskDesciption = parentRow.querySelector("#divDescription");
+        const taskDesciption = parentRow.querySelector("#divProjectDescription");
         taskDesciption.textContent = `${description}`;
+
+        let { toDoProjectButton, deleteProjectButton, editProjectButton } = addButtonsInProjectName();
+
+        taskName.appendChild(toDoProjectButton);
+        taskName.appendChild(deleteProjectButton);
+        taskName.appendChild(editProjectButton);
+        // taskName.append(taskDesciption);
     }
 
 // MODAL
