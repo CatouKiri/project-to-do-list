@@ -530,7 +530,8 @@ function toDoContainer() {
         taskName.appendChild(toDoProjectButton);
         taskName.appendChild(deleteProjectButton);
         taskName.appendChild(editProjectButton);
-        // taskName.append(taskDesciption);
+
+        localStorage.setItem("projectToDoList", JSON.stringify(projectToDoList));
     }
 
 // MODAL
