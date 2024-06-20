@@ -167,15 +167,29 @@ function toDoContainer() {
         const toDoDescription = parentRow.querySelector("#divDescription");
         const toDoDueDate = parentRow.querySelector("#tdDate");
 
+        const itemId = e.target.parentNode.parentNode.getAttribute("id");
+        const { parentObject, targetObject } = checkIfToDoOrProject(itemId);
+
+        // update the front end
         if(e.target.checked) {
             toDoName.setAttribute("style", "text-decoration: line-through;");
             toDoDescription.setAttribute("style", "text-decoration: line-through;");
             toDoDueDate.setAttribute("style", "text-decoration: line-through;");
+            targetObject.completed = true;
         }
         else {
             toDoName.removeAttribute("style", "text-decoration: line-through;");
             toDoDescription.removeAttribute("style", "text-decoration: line-through;");
             toDoDueDate.removeAttribute("style", "text-decoration: line-through;");
+            targetObject.completed = false;
+        }
+
+        // update the local storage
+        if (parentObject == toDoList) {
+            localStorage.setItem("toDoList", JSON.stringify(toDoList));
+        }
+        else {
+            localStorage.setItem("projectToDoList", JSON.stringify(projectToDoList));
         }
     }
 
