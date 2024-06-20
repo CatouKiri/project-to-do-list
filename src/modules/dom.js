@@ -103,6 +103,9 @@ function toDoContainer() {
 
         const checkBox = document.createElement("input");
         checkBox.setAttribute("type", "checkbox");
+        checkBox.onclick = function (e) {
+            checkBoxClick(e);
+        };
 
         const toDoNameAndDescription = document.createElement("td");
         toDoNameAndDescription.setAttribute("id", "tdNameAndDescription");
@@ -156,6 +159,24 @@ function toDoContainer() {
         newRow.appendChild(toDoDelete).textContent = `Delete`;
 
         clearModal();
+    }
+
+    function checkBoxClick(e) {
+        const parentRow = e.target.parentNode.parentNode;
+        const toDoName = parentRow.querySelector("#divTitle");
+        const toDoDescription = parentRow.querySelector("#divDescription");
+        const toDoDueDate = parentRow.querySelector("#tdDate");
+
+        if(e.target.checked) {
+            toDoName.setAttribute("style", "text-decoration: line-through;");
+            toDoDescription.setAttribute("style", "text-decoration: line-through;");
+            toDoDueDate.setAttribute("style", "text-decoration: line-through;");
+        }
+        else {
+            toDoName.removeAttribute("style", "text-decoration: line-through;");
+            toDoDescription.removeAttribute("style", "text-decoration: line-through;");
+            toDoDueDate.removeAttribute("style", "text-decoration: line-through;");
+        }
     }
 
     // DISPLAY TODO PROJECTS
