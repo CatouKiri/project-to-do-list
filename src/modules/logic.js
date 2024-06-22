@@ -1,8 +1,6 @@
-// localStorage.removeItem("a");
-// localStorage.removeItem("toDoList");
+// todoList storage
 // localStorage.clear();
 
-// todoList storage
 let toDoList = JSON.parse(localStorage.getItem('toDoList')) || [];
 
 // if there is no local storage, populate todoList with example items
@@ -33,8 +31,8 @@ if (!localStorage.getItem('projectToDoList')) {
     projectToDoList = [
         {
             id: "8",
-            name: "The Odin Project",
-            projectDescription: "Finish Programming Course",
+            title: "The Odin Project",
+            description: "Finish Programming Course",
             toDos:[
                 {
                     id: "3",
@@ -61,8 +59,8 @@ if (!localStorage.getItem('projectToDoList')) {
         },
         {
             id: "9",
-            name: "5 Day Dumbell Program",
-            projectDescription: "Exercise Program",
+            title: "5 Day Dumbell Program",
+            description: "Exercise Program",
             toDos:[
                 {
                     id: "6",
@@ -94,11 +92,12 @@ export function toDo(id, title, description, dueDate, completed = false) {
 }
 
 // PROJECT TODO CONSTRUCTOR
-export function projectToDo(id, name, projectDescription, toDos = []) {
+export function projectToDo(id, title, description, toDos = [], completed = false) {
     this.id = id;
-    this.name = name;
-    this.projectDescription = projectDescription;
+    this.title = title;
+    this.description = description;
     this.toDos = toDos;
+    this.completed = completed;
 }
 
 // CHECK IF TO BE DELETED IS IN TODOLIST OR TODOPROJECT
