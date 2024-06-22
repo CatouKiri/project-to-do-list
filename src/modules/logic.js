@@ -12,7 +12,7 @@ if (!localStorage.getItem('toDoList')) {
             description: "Do 10 bench press with 40lbs dumbells",
             dueDate: "2024-07-14",
             completed: true,
-            priority: 4,
+            priority: 0,
         },
         {
             id: "2",
@@ -20,7 +20,7 @@ if (!localStorage.getItem('toDoList')) {
             description: "",
             dueDate: "2024-12-06",
             completed: false,
-            priority: 4,
+            priority: 3,
 
         }
     ]
@@ -51,7 +51,7 @@ if (!localStorage.getItem('projectToDoList')) {
                     description: "What is CSS?",
                     dueDate: "2024-07-01",
                     completed: false,
-                    priority: 4,
+                    priority: 0,
                 },
                 {
                     id: "5",
@@ -59,7 +59,7 @@ if (!localStorage.getItem('projectToDoList')) {
                     description: "What is Javascript?",
                     dueDate: "2024-08-01",
                     completed: false,
-                    priority: 4,
+                    priority: 0,
                 }
             ]
         },
@@ -74,7 +74,7 @@ if (!localStorage.getItem('projectToDoList')) {
                     description: "Upper Body Exercise",
                     dueDate: "2024-06-01",
                     completed: false,
-                    priority: 4,
+                    priority: 2,
                 },
                 {
                     id: "7",
@@ -82,7 +82,7 @@ if (!localStorage.getItem('projectToDoList')) {
                     description: "Lower Exercise",
                     dueDate: "2024-07-01",
                     completed: false,
-                    priority: 4,
+                    priority: 0,
                 }
             ],
         }

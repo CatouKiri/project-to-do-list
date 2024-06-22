@@ -95,6 +95,7 @@ function toDoContainer() {
 
         const priorityColumn = document.createElement("td");
         priorityColumn.setAttribute("id", "tdPriority");
+        priorityCheck(toDo.priority, priorityColumn);
 
         const checkBoxColumn = document.createElement("td");
         checkBoxColumn.setAttribute("id", "tdCheckbox");
@@ -158,6 +159,22 @@ function toDoContainer() {
         newRow.appendChild(toDoDelete).textContent = `Delete`;
 
         clearModal();
+    }
+
+    // check what number is the priority
+    function priorityCheck(priority, priorityColumn) {
+        if(priority == 1) {
+            priorityColumn.setAttribute("style", "background-color: rgb(90, 255, 90);")
+        }
+        else if(priority == 2) {
+            priorityColumn.setAttribute("style", "background-color: rgb(255, 165, 90);")
+        }
+        else if(priority == 3) {
+            priorityColumn.setAttribute("style", "background-color: rgb(255, 90, 90);")
+        }
+        else {
+            priorityColumn.setAttribute("style", "background-color: rgb(255, 255, 255);")
+        }
     }
 
     // DISPLAY TODO PROJECTS
@@ -417,6 +434,7 @@ function toDoContainer() {
         const toDoName = parentRow.querySelector("#divTitle");
         const toDoDescription = parentRow.querySelector("#divDescription");
         const toDoDueDate = parentRow.querySelector("#tdDate");
+        const toDoPriority = parentRow.querySelector("#tdPriority");
 
         const itemId = e.target.parentNode.parentNode.getAttribute("id");
         const { parentObject, targetObject } = checkIfToDoOrProject(itemId);
@@ -426,6 +444,7 @@ function toDoContainer() {
             toDoName.setAttribute("style", "text-decoration: line-through;");
             toDoDescription.setAttribute("style", "text-decoration: line-through;");
             toDoDueDate.setAttribute("style", "text-decoration: line-through;");
+            toDoPriority.setAttribute("style", "background-color: rgb(255, 255, 255);");
             targetObject.completed = true;
         }
         else {
@@ -433,6 +452,7 @@ function toDoContainer() {
             toDoDescription.removeAttribute("style", "text-decoration: line-through;");
             toDoDueDate.removeAttribute("style", "text-decoration: line-through;");
             targetObject.completed = false;
+            priorityCheck(targetObject.priority, toDoPriority);
         }
 
         // update the local storage
@@ -591,10 +611,13 @@ function toDoContainer() {
         let taskName = document.getElementById("taskNameInput");
         let taskDesciption = document.getElementById("taskDescriptionInput");
         let taskDueDate = document.getElementById("taskDueDateInput");
+        let taskPriority = document.getElementById("taskPriorityInput");
 
         taskName.value = "";
         taskDesciption.value = "";
         taskDueDate.value = "";
+        taskPriority.value = 0;
+        taskPriority.setAttribute("style", "background-color: rgb(255, 255, 255);")
     }
 
     // SHOW MODAL
@@ -619,18 +642,7 @@ function toDoContainer() {
 
     function onSelectChange() {
         const taskPriorityInput = document.getElementById("taskPriorityInput");
-        if(taskPriorityInput.value == 0) {
-            taskPriorityInput.setAttribute("style", "background-color: rgb(255, 255, 255);")
-        }
-        else if(taskPriorityInput.value == 1) {
-            taskPriorityInput.setAttribute("style", "background-color: rgb(90, 255, 90);")
-        }
-        else if(taskPriorityInput.value == 2) {
-            taskPriorityInput.setAttribute("style", "background-color: rgb(255, 255, 90);")
-        }
-        else {
-            taskPriorityInput.setAttribute("style", "background-color: rgb(255, 90, 90);")
-        }
+        priorityCheck(taskPriorityInput.value, taskPriorityInput);
     }
 
 // RENDER ELEMENTS
