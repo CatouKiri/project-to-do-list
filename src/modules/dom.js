@@ -36,11 +36,19 @@ function sidebar() {
     addProjectBtn.setAttribute("id", "addProjectBtn");
     addProjectBtn.textContent = "+Add  Project";
 
-    // const showAllBtn = document.createElement('button');
-    // showAllBtn.setAttribute('id', 'showAllBtn');
-    // showAllBtn.textContent = "Show All";
+    const showAllBtn = document.createElement('button');
+    showAllBtn.setAttribute('id', 'showAll');
+    showAllBtn.textContent = "Show All";
 
-    div.append(addTaskBtn, addProjectBtn);
+    const showToDosOnly = document.createElement('button');
+    showToDosOnly.setAttribute('id', 'showToDosOnly');
+    showToDosOnly.textContent = "Show To Dos Only";
+
+    const showProjectsOnly = document.createElement('button');
+    showProjectsOnly.setAttribute('id', 'showProjectsOnly');
+    showProjectsOnly.textContent = "Show Projects";
+
+    div.append(addTaskBtn, addProjectBtn, showAllBtn, showToDosOnly, showProjectsOnly);
 
     return div;
 }
@@ -63,7 +71,7 @@ function toDoContainer() {
     toDoListHeader.textContent = "TO DOs";
 
     const toDoProjectHeader = document.createElement("h2");
-    toDoProjectHeader.textContent = "PROJECTS";
+    toDoProjectHeader.textContent = "PROJECTs";
 
     toDoListContainer.append(toDoList, toDoProject);
     toDoList.append(toDoListHeader);
@@ -275,7 +283,6 @@ function toDoContainer() {
     // add single button onclick
     export function addToDoButtonOnclick() {
         const addToDoButton = document.getElementById("addTaskBtn");
-        // addToDoButton.onclick = handleAddToDoButtonOnClick;
         addToDoButton.onclick = function() {
             handleAddToDoButtonOnClick("singleToDo");
         }
@@ -286,6 +293,51 @@ function toDoContainer() {
         const addProjectButton = document.getElementById("addProjectBtn");
         addProjectButton.onclick = function() {
             handleAddToDoButtonOnClick("projectToDo");
+        }
+    }
+
+    // show all button onclick
+    export function showAllButtonOnclick() {
+        const showAll = document.getElementById("showAll");
+        showAll.onclick = function() {
+            handleDisplayButtonOnClick("showAll");
+        }
+    }
+
+    // show todos only button onclick
+    export function showToDosOnlyButtonOnclick() {
+        const showToDosOnly = document.getElementById("showToDosOnly");
+        showToDosOnly.onclick = function() {
+            handleDisplayButtonOnClick("showToDosOnly");
+        }
+    }
+
+    // show projects only button onclick
+    export function showProjectsOnlyButtonOnclick() {
+        const showProjectsOnly = document.getElementById("showProjectsOnly");
+        showProjectsOnly.onclick = function() {
+            handleDisplayButtonOnClick("showProjectsOnly");
+        }
+    }
+
+    // button handlers : takes show all, todos only, projects only
+    function handleDisplayButtonOnClick(type) {
+        const toDoListDiv = document.getElementById("toDoList");
+        const toDoProjectDiv = document.getElementById("toDoProject");
+        toDoProjectDiv.setAttribute("style", "padding-top: 0px;");
+
+        if (type == "showAll") {
+            toDoListDiv.style.display = "flex";
+            toDoProjectDiv.style.display = "flex";
+        }
+        else if (type == "showToDosOnly") {
+            toDoListDiv.style.display = "flex";
+            toDoProjectDiv.style.display = "none";
+        }
+        else if (type == "showProjectsOnly") {
+            toDoListDiv.style.display = "none";
+            toDoProjectDiv.style.display = "flex";
+            toDoProjectDiv.setAttribute("style", "padding-top: 50px;");
         }
     }
 
