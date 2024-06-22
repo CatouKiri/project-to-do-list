@@ -93,6 +93,9 @@ function toDoContainer() {
         const newRow = document.createElement("tr");
         newRow.setAttribute("id", `${toDo.id}`);
 
+        const priorityColumn = document.createElement("td");
+        priorityColumn.setAttribute("id", "tdPriority");
+
         const checkBoxColumn = document.createElement("td");
         checkBoxColumn.setAttribute("id", "tdCheckbox");
 
@@ -137,6 +140,7 @@ function toDoContainer() {
             toDoDueDate.setAttribute("style", "text-decoration: line-through;");
         }
 
+        newRow.appendChild(priorityColumn);
         newRow.appendChild(checkBoxColumn);
         checkBoxColumn.appendChild(checkBox);
         newRow.appendChild(toDoNameAndDescription);
@@ -514,12 +518,35 @@ function toDoContainer() {
         taskNameInput.setAttribute("id", "taskNameInput");
         taskNameInput.setAttribute("type", "text");
         taskNameInput.setAttribute("placeholder", "Task Name");
-        taskNameInput.setAttribute("onkeyup", "enableSubmitButton()");
 
         const taskDescriptionInput = document.createElement("input");
         taskDescriptionInput.setAttribute("id", "taskDescriptionInput");
         taskDescriptionInput.setAttribute("type", "text");
         taskDescriptionInput.setAttribute("placeholder", "Description");
+
+        const taskPriorityInput = document.createElement("select");
+        taskPriorityInput.setAttribute("id", "taskPriorityInput");
+        taskPriorityInput.setAttribute("name", "priority");
+
+        // task description options
+            const option1 = document.createElement("option");
+            option1.setAttribute("value", "0");
+            option1.textContent = "Priority 0";
+
+            const option2 = document.createElement("option");
+            option2.setAttribute("id", "priority1");
+            option2.setAttribute("value", "1");
+            option2.textContent = "Priority 1";
+
+            const option3 = document.createElement("option");
+            option3.setAttribute("id", "priority2");
+            option3.setAttribute("value", "2");
+            option3.textContent = "Priority 2";
+
+            const option4 = document.createElement("option");
+            option4.setAttribute("id", "priority3");
+            option4.setAttribute("value", "3");
+            option4.textContent = "Priority 3";
 
         const taskDueDateInput = document.createElement("input");
         taskDueDateInput.setAttribute("id", "taskDueDateInput");
@@ -542,11 +569,18 @@ function toDoContainer() {
             addTaskHeader,
             taskNameInput,
             taskDescriptionInput,
+            taskPriorityInput,
             taskDueDateInput,
             submitButton,
             cancelButton
         );
+        taskPriorityInput.append(
+            option1,
+            option2,
+            option3,
+            option4)
 
+        taskPriorityInput.addEventListener("change", onSelectChange);
         taskNameInput.addEventListener("keyup", enableSubmitButton);
 
         return div;
@@ -566,9 +600,12 @@ function toDoContainer() {
     // SHOW MODAL
     function showModal(modal, type) {
         const taskDueDateInput = document.getElementById("taskDueDateInput");
+        const taskPriorityInput = document.getElementById("taskPriorityInput");
         taskDueDateInput.style.display = "inline-block";
+        taskPriorityInput.style.display = "inline-block";
         if(type == "project"){
             taskDueDateInput.style.display = "none";
+            taskPriorityInput.style.display = "none";
         }
         modal.style.display = "flex";
     }
@@ -578,6 +615,22 @@ function toDoContainer() {
         modal.style.display = "none";
         const submitButton = document.getElementById("taskSubmit");
         submitButton.removeAttribute("disabled");
+    }
+
+    function onSelectChange() {
+        const taskPriorityInput = document.getElementById("taskPriorityInput");
+        if(taskPriorityInput.value == 0) {
+            taskPriorityInput.setAttribute("style", "background-color: rgb(255, 255, 255);")
+        }
+        else if(taskPriorityInput.value == 1) {
+            taskPriorityInput.setAttribute("style", "background-color: rgb(90, 255, 90);")
+        }
+        else if(taskPriorityInput.value == 2) {
+            taskPriorityInput.setAttribute("style", "background-color: rgb(255, 255, 90);")
+        }
+        else {
+            taskPriorityInput.setAttribute("style", "background-color: rgb(255, 90, 90);")
+        }
     }
 
 // RENDER ELEMENTS

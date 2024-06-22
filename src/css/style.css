@@ -82,6 +82,11 @@ td {
     cursor: pointer;
 }
 
+#tdPriority {
+    width: 3px;
+    background-color: red;
+}
+
 #tdCheckbox {
     width: 35px;
 }
@@ -159,11 +164,12 @@ img {
     justify-content: center;
 }
 
-input {
+input, select, option {
     box-sizing: border-box;
     width: 100%;
     height: 30px;
     border-radius: 6px;
+    margin-bottom: 5px;
 }
 
 h3 {
@@ -171,9 +177,10 @@ h3 {
     margin-bottom: 15px;
 }
 
-input {
-    margin-bottom: 5px;
-}
+select option[value="0"] { background-color: rgb(255, 255, 255); }
+select option[value="1"] { background-color: rgb(90, 255, 90); }
+select option[value="2"] { background-color: rgb(255, 255, 90); }
+select option[value="3"] { background-color: rgb(255, 90, 90); }
 
 #createModal button {
     cursor: pointer;

@@ -11,14 +11,17 @@ if (!localStorage.getItem('toDoList')) {
             title: "Bench Press",
             description: "Do 10 bench press with 40lbs dumbells",
             dueDate: "2024-07-14",
-            completed: true
+            completed: true,
+            priority: 4,
         },
         {
             id: "2",
             title: "Sweep floor",
             description: "",
             dueDate: "2024-12-06",
-            completed: false
+            completed: false,
+            priority: 4,
+
         }
     ]
 }
@@ -39,21 +42,24 @@ if (!localStorage.getItem('projectToDoList')) {
                     title: "Lesson 1",
                     description: "What is HTML?",
                     dueDate: "2024-06-01",
-                    completed: false
+                    completed: false,
+                    priority: 1,
                 },
                 {
                     id: "4",
                     title: "Lesson 2",
                     description: "What is CSS?",
                     dueDate: "2024-07-01",
-                    completed: false
+                    completed: false,
+                    priority: 4,
                 },
                 {
                     id: "5",
                     title: "Lesson 3",
                     description: "What is Javascript?",
                     dueDate: "2024-08-01",
-                    completed: false
+                    completed: false,
+                    priority: 4,
                 }
             ]
         },
@@ -67,14 +73,16 @@ if (!localStorage.getItem('projectToDoList')) {
                     title: "Day 1",
                     description: "Upper Body Exercise",
                     dueDate: "2024-06-01",
-                    completed: false
+                    completed: false,
+                    priority: 4,
                 },
                 {
                     id: "7",
                     title: "Day 2",
                     description: "Lower Exercise",
                     dueDate: "2024-07-01",
-                    completed: false
+                    completed: false,
+                    priority: 4,
                 }
             ],
         }
@@ -83,21 +91,23 @@ if (!localStorage.getItem('projectToDoList')) {
 
 
 // TODO CONSTRUCTOR
-export function toDo(id, title, description, dueDate, completed = false) {
+export function toDo(id, title, description, dueDate, completed = false, priority) {
     this.id = id;
     this.title = title;
     this.description = description;
     this.dueDate = dueDate;
     this.completed = completed;
+    this.priority = priority;
 }
 
 // PROJECT TODO CONSTRUCTOR
-export function projectToDo(id, title, description, toDos = [], completed = false) {
+export function projectToDo(id, title, description, toDos = [], completed = false, priority) {
     this.id = id;
     this.title = title;
     this.description = description;
     this.toDos = toDos;
     this.completed = completed;
+    this.priority = priority;
 }
 
 // CHECK IF TO BE DELETED IS IN TODOLIST OR TODOPROJECT
