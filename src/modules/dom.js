@@ -46,7 +46,7 @@ function sidebar() {
 
     const showProjectsOnly = document.createElement('button');
     showProjectsOnly.setAttribute('id', 'showProjectsOnly');
-    showProjectsOnly.textContent = "Show Projects";
+    showProjectsOnly.textContent = "Show Projects Only";
 
     div.append(addTaskBtn, addProjectBtn, showAllBtn, showToDosOnly, showProjectsOnly);
 
@@ -411,6 +411,18 @@ function toDoContainer() {
         const taskDesciption = document.querySelector("#taskDescriptionInput").value;
         const taskDueDate = document.querySelector("#taskDueDateInput").value;
         const taskPriority = document.querySelector("#taskPriorityInput").value;
+
+        const toDoListDiv = document.querySelector("#toDoList");
+        const toDoProjectDiv = document.querySelector("#toDoProject");
+
+        if(toDoListDiv.style.display == "none" && type == "singleToDo") {
+            toDoListDiv.style.display = "flex";
+            toDoProjectDiv.style.display = "none";
+        }
+        else if(toDoProjectDiv.style.display == "none" && type == "projectToDo") {
+            toDoListDiv.style.display = "none";
+            toDoProjectDiv.style.display = "flex";
+        }
 
         if(type == "singleToDo" || type == "singleInsideProjectToDo") {
             const newToDo = new toDo(a, taskName, taskDesciption, taskDueDate, false, taskPriority);
