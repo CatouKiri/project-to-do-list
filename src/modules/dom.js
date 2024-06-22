@@ -139,6 +139,7 @@ function toDoContainer() {
             toDoName.setAttribute("style", "text-decoration: line-through;");
             toDoDescription.setAttribute("style", "text-decoration: line-through;");
             toDoDueDate.setAttribute("style", "text-decoration: line-through;");
+            priorityColumn.setAttribute("style", "background-color: rgb(255, 255, 255);");
         }
 
         newRow.appendChild(priorityColumn);
@@ -292,17 +293,22 @@ function toDoContainer() {
     function handleAddToDoButtonOnClick(type, projectId) {
         disableButton();
 
+        // if the clicked button is edit
         if(type == "editToDo" || type == "editProject") {
             enableSubmitButton();
             let { parentObject, targetObject } = checkIfToDoOrProject(projectId);
-            console.log(targetObject);
+
             const taskName = document.getElementById("taskNameInput");
             taskName.value = `${targetObject.title}`;
             const taskDesciption = document.getElementById("taskDescriptionInput");
             taskDesciption.value = `${targetObject.description}`;
+
             if(type == "editToDo") {
                 const taskDueDate = document.getElementById("taskDueDateInput");
                 taskDueDate.value = `${targetObject.dueDate}`;
+                const taskPriority = document.getElementById("taskPriorityInput");
+                taskPriority.value = `${targetObject.priority}`;
+                priorityCheck(targetObject.priority, taskPriority);
             }
         }
 
@@ -352,9 +358,10 @@ function toDoContainer() {
         const taskName = document.querySelector("#taskNameInput").value;
         const taskDesciption = document.querySelector("#taskDescriptionInput").value;
         const taskDueDate = document.querySelector("#taskDueDateInput").value;
+        const taskPriority = document.querySelector("#taskPriorityInput").value;
 
         if(type == "singleToDo" || type == "singleInsideProjectToDo") {
-            const newToDo = new toDo(a, taskName, taskDesciption, taskDueDate);
+            const newToDo = new toDo(a, taskName, taskDesciption, taskDueDate, taskPriority);
             if(type == "singleToDo") {
                 toDoList.push(newToDo);
                 localStorage.setItem("toDoList", JSON.stringify(toDoList));
@@ -373,6 +380,7 @@ function toDoContainer() {
             targetObject.description = taskDesciption;
             if(type == "editToDo") {
                 targetObject.dueDate = taskDueDate;
+                targetObject.priority = taskPriority;
             }
 
             if (parentObject == toDoList) {
@@ -383,7 +391,7 @@ function toDoContainer() {
             }
 
             if(type == "editToDo") {
-                updateSingleToDoContainer(targetObject.id, taskName, taskDesciption, taskDueDate);
+                updateSingleToDoContainer(targetObject.id, taskName, taskDesciption, taskDueDate, taskPriority);
             }
             else {
                 updateProjectContainer(targetObject.id, taskName, taskDesciption);
@@ -399,8 +407,6 @@ function toDoContainer() {
 
         localStorage.setItem('a', a);
 
-        console.log(toDoList);
-        console.log(projectToDoList);
         const toDoModal = document.getElementById("createModal");
         hideModal(toDoModal);
         clearModal();
@@ -482,7 +488,7 @@ function toDoContainer() {
     }
 
     // update a todo inside a project
-    function updateSingleToDoContainer(id, name, description, dueDate) {
+    function updateSingleToDoContainer(id, name, description, dueDate, priority) {
         const parentRow = document.getElementById(id);
 
         const taskName = parentRow.querySelector("#divTitle");
@@ -492,13 +498,15 @@ function toDoContainer() {
         taskDesciption.textContent = `${description}`;
 
         const taskDueDate = parentRow.querySelector("#tdDate");
-
         if(!dueDate){
             taskDueDate.textContent = "No Due Date";
         }
         else {
             taskDueDate.textContent = `${formatDate(dueDate)}`;
         }
+
+        const taskPriority = parentRow.querySelector("#tdPriority");
+        priorityCheck(priority, taskPriority)
     }
 
     // update the header of a todo project

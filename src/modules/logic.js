@@ -1,5 +1,5 @@
 // todoList storage
-// localStorage.clear();
+localStorage.clear();
 
 let toDoList = JSON.parse(localStorage.getItem('toDoList')) || [];
 
@@ -12,7 +12,7 @@ if (!localStorage.getItem('toDoList')) {
             description: "Do 10 bench press with 40lbs dumbells",
             dueDate: "2024-07-14",
             completed: true,
-            priority: 0,
+            priority: 3,
         },
         {
             id: "2",
