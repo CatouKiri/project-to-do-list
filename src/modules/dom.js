@@ -361,7 +361,7 @@ function toDoContainer() {
         const taskPriority = document.querySelector("#taskPriorityInput").value;
 
         if(type == "singleToDo" || type == "singleInsideProjectToDo") {
-            const newToDo = new toDo(a, taskName, taskDesciption, taskDueDate, taskPriority);
+            const newToDo = new toDo(a, taskName, taskDesciption, taskDueDate, false, taskPriority);
             if(type == "singleToDo") {
                 toDoList.push(newToDo);
                 localStorage.setItem("toDoList", JSON.stringify(toDoList));
