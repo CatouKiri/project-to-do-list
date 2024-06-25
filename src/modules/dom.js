@@ -3,9 +3,7 @@ import { toDoList, projectToDoList, toDo, projectToDo, checkIfToDoOrProject } fr
 import deleteIcon from '../imgs/bin.png';
 import editIcon from '../imgs/editing.png';
 import { format } from "date-fns";
-import { el } from "date-fns/locale";
 
-// let a = 10;
 // todoList storage
 let a = localStorage.getItem('a') || '';
 
@@ -212,7 +210,7 @@ function toDoContainer() {
         toDoProjectDescription.textContent = `${project.description}`;
 
 
-        let { toDoProjectButton, deleteProjectButton, editProjectButton, deleteI, editI} = addButtonsInProjectName();
+        let { toDoProjectButton, deleteProjectButton, editProjectButton} = addButtonsInProjectName();
 
         const projectTable = document.createElement("table");
 
@@ -348,7 +346,7 @@ function toDoContainer() {
         // if the clicked button is edit
         if(type == "editToDo" || type == "editProject") {
             enableSubmitButton();
-            let { parentObject, targetObject } = checkIfToDoOrProject(projectId);
+            let {targetObject } = checkIfToDoOrProject(projectId);
 
             const taskName = document.getElementById("taskNameInput");
             taskName.value = `${targetObject.title}`;
@@ -542,6 +540,7 @@ function toDoContainer() {
 
     // button enabler
     function enableSubmitButton() {
+        const taskNameInput = document.getElementById("taskNameInput");
         const submitButton = document.getElementById("taskSubmit");
         submitButton.removeAttribute("disabled");
         if (taskNameInput.value.trim() !== "") {
